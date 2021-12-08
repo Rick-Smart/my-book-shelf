@@ -9,18 +9,26 @@ import colors from "../config/colors";
 
 const menuItems = [
   {
+    title: "My Book Shelf",
+    icon: {
+      name: "book-multiple",
+      backgroundColor: colors.primary,
+    },
+    targetScreen: "BookShelf",
+  },
+  {
     title: "Recommended Books",
     icon: {
-      name: "format-list-bulleted",
-      backgroundColor: colors.primary,
+      name: "book-plus-multiple",
+      backgroundColor: colors.secondary,
     },
     targetScreen: "Recommended",
   },
   {
-    title: "Messages",
+    title: "community Library",
     icon: {
-      name: "email",
-      backgroundColor: colors.secondary,
+      name: "library-shelves",
+      backgroundColor: colors.subTitle,
     },
     targetScreen: "Messages",
   },
@@ -35,6 +43,34 @@ export default function AccountScreen() {
           title="User Name"
           subTitle="user Email"
           image={require("../assets/bookbackground.jpeg")}
+        />
+      </View>
+      <View style={styles.menuContainer}>
+        <FlatList
+          data={menuItems}
+          keyExtractor={(menuItem) => menuItem.title.toString()}
+          renderItem={({ item }) => (
+            <ListItem
+              title={item.title}
+              IconComponent={
+                <AppIcon
+                  name={item.icon.name}
+                  backgroundColor={item.icon.backgroundColor}
+                />
+              }
+              onPress={() => console.log(item.title)}
+            />
+          )}
+          ItemSeparatorComponent={ListItemSeparator}
+        />
+      </View>
+      <View style={styles.logoutContainer}>
+        <ListItem
+          title="log out"
+          onPress={() => console.log("log out")}
+          IconComponent={
+            <AppIcon name="logout" backgroundColor={colors.subTitle} />
+          }
         />
       </View>
     </Screen>
