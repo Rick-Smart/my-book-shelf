@@ -23,7 +23,7 @@ export default function AppLogo({ size }) {
         backgroundColor={colors.primary}
         color={colors.subTitle}
       />
-      <AppText style={styles.tagLine}>Open Book</AppText>
+      {/* <AppText style={styles.tagLine}>Open Book</AppText> */}
     </View>
   );
 }
