@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { StyleSheet, FlatList, ActivityIndicator, View } from "react-native";
 
 import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
@@ -7,6 +7,8 @@ import AppButton from "../components/AppButton";
 import colors from "../config/colors";
 import Screen from "../components/Screen";
 
+
+// this is for testing purposes only
 const recommendedBooks = [
   {
     id: 1,
@@ -34,8 +36,20 @@ export default function RecommendedScreen() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    // loadListings();
+  }, []);
+
   return (
     <Screen style={styles.screen}>
+      {error && (
+        <>
+          <View style={styles.errorContainer}>
+            <AppText>Couldn't get listings</AppText>
+            <AppButton title="retry" onPress={() => console.log(error)} />
+          </View>
+        </>
+      )}
       <FlatList
         data={recommendedBooks}
         keyExtractor={(listItem) => listItem.id.toString()}
@@ -44,7 +58,7 @@ export default function RecommendedScreen() {
             title={item.title}
             subtitle={"Rating: " + item.rating}
             imageUrl={item.image}
-            onPress={() => console.log(item.image)}
+            onPress={() => console.log(item.title)}
           />
         )}
       />
@@ -53,6 +67,9 @@ export default function RecommendedScreen() {
 }
 
 const styles = StyleSheet.create({
+  errorContainer: {
+    alignItems: "center",
+  },
   screen: {
     padding: 20,
     backgroundColor: colors.light,

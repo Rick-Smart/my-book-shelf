@@ -32,7 +32,7 @@ export default function RegisterScreen() {
       >
         <AppFormField
           name="name"
-          autoCapitalize="title"
+          autoCapitalize="words"
           autoCorrect={false}
           icon="account"
           placeholder="Name"

@@ -13,7 +13,9 @@ export default function AppCard({ title, subtitle, imageUrl, onPress }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: imageUrl }} />
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{ uri: imageUrl }} />
+        </View>
         <View style={styles.cardText}>
           <AppText style={styles.title}>{title}</AppText>
           <AppText style={styles.subtitle}>{subtitle}</AppText>
@@ -30,10 +32,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     overflow: "hidden",
   },
-  image: {
-    
+  imageContainer: {
     width: "100%",
-    height: 200,
+    height: 300,
+  },
+  image: {
+    flex: 1,
+    width: "undefined",
+    height: "undefinded",
+    resizeMode: "contain",
+    marginVertical: 10,
   },
   cardText: {
     padding: 20,

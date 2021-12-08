@@ -6,7 +6,8 @@ import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import AccountScreen from "./app/screens/AccountScreen";
 import RecommendedScreen from "./app/screens/RecommendedScreen";
+import MyBookShelfScreen from "./app/screens/MyBookShelfScreen";
 
 export default function App() {
-  return <RecommendedScreen />;
+  return <MyBookShelfScreen />;
 }
