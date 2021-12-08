@@ -2,10 +2,7 @@ import React from "react";
 import { View, StyleSheet, ImageBackground } from "react-native";
 
 import AppButton from "../components/AppButton";
-import AppText from "../components/AppText";
 import AppLogo from "../components/AppLogo";
-
-import colors from "../config/colors";
 
 export default function WelcomeScreen() {
   return (

@@ -23,16 +23,16 @@ export default function AppLogo({ size }) {
         backgroundColor={colors.primary}
         color={colors.subTitle}
       />
-      {/* <AppText style={styles.tagLine}>Open Book</AppText> */}
+      <AppText style={styles.tagLine}>Open Book</AppText>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   tagLine: {
-    color: colors.white,
-    fontSize: 22,
-    fontWeight: "600",
-    // textDecorationLine: "underline",
+    color: colors.subTitle,
+    fontSize: 18,
+    fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });

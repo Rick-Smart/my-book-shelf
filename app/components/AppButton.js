@@ -15,19 +15,19 @@ export default function AppButton({ title, color = colors.primary, onPress }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: "center",
-        backgroundColor: colors.primary,
-        borderRadius: 25,
-        justifyContent: "center",
-        padding: 15,
-        width: "100%",
-        marginVertical: 10,
-      },
-      text: {
-        color: colors.white,
-        fontSize: 18,
-        fontWeight: "bold",
-        textTransform: "uppercase",
-      },
+  container: {
+    alignItems: "center",
+    backgroundColor: colors.primary,
+    borderRadius: 25,
+    justifyContent: "center",
+    padding: 15,
+    width: "100%",
+    marginVertical: 10,
+  },
+  text: {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
 });
