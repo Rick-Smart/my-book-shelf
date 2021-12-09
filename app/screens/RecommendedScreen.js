@@ -45,7 +45,7 @@ export default function RecommendedScreen() {
       {error && (
         <>
           <View style={styles.errorContainer}>
-            <AppText>Couldn't get listings</AppText>
+            <AppText>Couldn't get recommendations</AppText>
             <AppButton title="retry" onPress={() => console.log(error)} />
           </View>
         </>

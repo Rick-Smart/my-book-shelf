@@ -17,18 +17,21 @@ const myBooks = [
     rating: 4,
     image:
       "https://images-na.ssl-images-amazon.com/images/I/61YufTqMJ4L._AC_UL600_SR600,600_.jpg",
+    author: "Norman J. Vig",
   },
   {
     id: 1,
     title: "Through The Arc Of The Rain Forest",
     rating: 5,
     image: "https://m.media-amazon.com/images/I/41opg4cRxFL.jpg",
+    author: "Karen Tei Yamashita",
   },
   {
     id: 2,
     title: "Feminism Unfinished",
     rating: 2,
     image: "https://images-na.ssl-images-amazon.com/images/I/81oKhHdzr+L.jpg",
+    author: "Dorothy Sue Cobble",
   },
 ];
 
@@ -41,8 +44,11 @@ export default function MyBookShelfScreen() {
       const searchTerm = text;
 
       // filter method i'm using to search for books in my array
-      const filteredBooks = myBooks.filter(({ title }) => {
-        return title.toLowerCase().includes(searchTerm);
+      const filteredBooks = myBooks.filter(({ title, author }) => {
+        return (
+          title.toLowerCase().includes(searchTerm) ||
+          author.toLowerCase().includes(searchTerm)
+        );
       });
 
       setSearchResults(filteredBooks);
@@ -71,7 +77,8 @@ export default function MyBookShelfScreen() {
 
       {searchResults.length < 1 && (
         <AppText style={styles.helperText}>
-          Type in the name of the book you're looking for in your library
+          Type in the name or author of the book you're looking for in your
+          library
         </AppText>
       )}
 

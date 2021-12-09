@@ -8,7 +8,8 @@ import AccountScreen from "./app/screens/AccountScreen";
 import RecommendedScreen from "./app/screens/RecommendedScreen";
 import MyBookShelfScreen from "./app/screens/MyBookShelfScreen";
 import CommunityLibraryScreen from "./app/screens/CommunityLibraryScreen";
+import BookDetailsScreen from "./app/screens/BookDetailsScreen";
 
 export default function App() {
-  return <CommunityLibraryScreen />;
+  return <BookDetailsScreen />;
 }
