@@ -4,7 +4,6 @@ import { View, StyleSheet, FlatList, Keyboard } from "react-native";
 import AppTextInput from "../components/AppTextInput";
 import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
-import AppButton from "../components/AppButton";
 import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
 
@@ -34,17 +33,22 @@ const myBooks = [
 ];
 
 export default function MyBookShelfScreen() {
-  const [search, setSearch] = useState("");
-  const [results, setResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
-  const bookSearch = () => {
-    Keyboard.dismiss();
-    
-    let data = myBooks.filter(({ title }) =>
-      title.toLowerCase().includes(search)
-    );
+  const bookSearch = (text) => {
+    // Keyboard.dismiss();
+    if (text) {
+      const searchTerm = text;
 
-    setResults(data);
+      // filter method i'm using to search for books in my array
+      const filteredBooks = myBooks.filter(({ title }) => {
+        return title.toLowerCase().includes(searchTerm);
+      });
+
+      setSearchResults(filteredBooks);
+    } else {
+      setSearchResults([]);
+    }
   };
 
   return (
@@ -61,21 +65,20 @@ export default function MyBookShelfScreen() {
         <AppTextInput
           icon={"book-search"}
           placeholder="Search"
-          onChangeText={(text) => setSearch(text.toLowerCase())}
+          onChangeText={(text) => bookSearch(text.toLowerCase())}
         />
-        <AppButton marginTop={0} title="search" onPress={bookSearch} />
       </View>
 
-      {results.length < 1 && (
+      {searchResults.length < 1 && (
         <AppText style={styles.helperText}>
           Type in the name of the book you're looking for in your library
         </AppText>
       )}
 
-      {results && (
+      {searchResults && (
         <View>
           <FlatList
-            data={results}
+            data={searchResults}
             keyExtractor={(listItem) => listItem.id.toString()}
             renderItem={({ item }) => (
               <AppCard

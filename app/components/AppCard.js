@@ -38,8 +38,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: "undefined",
-    height: "undefinded",
     resizeMode: "contain",
     marginVertical: 10,
   },
