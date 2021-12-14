@@ -12,7 +12,11 @@ export default function AppMessages({ title, onPress, renderRightActions }) {
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
         <View style={styles.container}>
-          <AppIcon name="email" iconColor={colors.subTitle} backgroundColor={colors.primary} />
+          <AppIcon
+            name="email"
+            iconColor={colors.subTitle}
+            backgroundColor={colors.primary}
+          />
           <View style={styles.detailsContainer}>
             <AppText style={styles.title} numberOfLines={1}>
               {title}

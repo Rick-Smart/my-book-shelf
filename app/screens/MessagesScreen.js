@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 
-import AppIcon from "../components/AppIcon";
 import AppMessages from "../components/AppMessages";
-import { ListItem, ListItemSeparator } from "../components/lists";
+import {
+  ListItem,
+  ListItemSeparator,
+  ListItemDeleteAction,
+} from "../components/lists";
 import Screen from "../components/Screen";
 
 import colors from "../config/colors";
 
-const messages = [
+// This is for testing purposes only, and will be removed
+// when we start pulling data from the server
+const messageData = [
   {
+    user: "Rick",
     title: "My Book Shelf",
     icon: {
       name: "email",
@@ -17,8 +23,10 @@ const messages = [
     },
     targetScreen: "MyBookShelfScreen",
     tabName: "MyBookShelf",
+    text: "Stuff and things about stuff",
   },
   {
+    user: "Cass",
     title: "Recommended Books",
     icon: {
       name: "book-plus-multiple",
@@ -26,8 +34,10 @@ const messages = [
     },
     targetScreen: "RecommendedScreen",
     tabName: "Recommended",
+    text: "Stuff and things about stuff",
   },
   {
+    user: "Amber",
     title: "Community Library",
     icon: {
       name: "library-shelves",
@@ -35,8 +45,10 @@ const messages = [
     },
     targetScreen: "CommunityLibraryScreen",
     tabName: "CommunityLibrary",
+    text: "Stuff and things about stuff",
   },
   {
+    user: "Sienna",
     title: "Messages",
     icon: {
       name: "email",
@@ -44,28 +56,20 @@ const messages = [
     },
     targetScreen: "MessagesScreen",
     tabName: "Messages",
-  },
-  {
-    title: "MoreMessages",
-    icon: {
-      name: "email",
-      backgroundColor: colors.blue,
-    },
-    targetScreen: "MessagesScreen",
-    tabName: "Messages",
-  },
-  {
-    title: "LotsOMessages",
-    icon: {
-      name: "email",
-      backgroundColor: colors.blue,
-    },
-    targetScreen: "MessagesScreen",
-    tabName: "Messages",
+    text: "Stuff and things about stuff",
   },
 ];
 
-export default function MessagesScreen() {
+export default function MessagesScreen({ navigation }) {
+  const [messages, setMessages] = useState(messageData);
+
+  //   this is the function im using for deleting a message and will
+  // be replaced once we start using redux
+  const handleDeleteMessage = (item) => {
+    const newMessages = messages.filter(({ title }) => title !== item.title);
+    setMessages(newMessages);
+  };
+
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -73,6 +77,7 @@ export default function MessagesScreen() {
           title="User Name"
           subTitle="user Email"
           image={require("../assets/bookbackground.jpeg")}
+          onPress={() => navigation.navigate("Account")}
         />
       </View>
       <View style={styles.menuContainer}>
@@ -80,10 +85,15 @@ export default function MessagesScreen() {
           data={messages}
           keyExtractor={(messageItem) => messageItem.title.toString()}
           renderItem={({ item }) => (
-            <AppMessages 
-            title={item.title} 
-            // onPress={() => console.log(item)}
-             />
+            <AppMessages
+              title={item.title}
+              renderRightActions={() => (
+                <ListItemDeleteAction
+                  onPress={() => handleDeleteMessage(item)}
+                />
+              )}
+              onPress={() => navigation.navigate("Message", item)}
+            />
           )}
           ItemSeparatorComponent={ListItemSeparator}
         />
