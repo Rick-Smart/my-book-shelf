@@ -1,15 +1,13 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 
-import WelcomeScreen from "./app/screens/WelcomeScreen";
-import LoginScreen from "./app/screens/LoginScreen";
-import RegisterScreen from "./app/screens/RegisterScreen";
-import AccountScreen from "./app/screens/AccountScreen";
-import RecommendedScreen from "./app/screens/RecommendedScreen";
-import MyBookShelfScreen from "./app/screens/MyBookShelfScreen";
-import CommunityLibraryScreen from "./app/screens/CommunityLibraryScreen";
-import BookDetailsScreen from "./app/screens/BookDetailsScreen";
+import AccountNavigator from "./app/navigation/AccountNavigator";
+import AuthNavigator from "./app/navigation/AuthNavigator";
 
 export default function App() {
-  return <BookDetailsScreen />;
+  return (
+    <NavigationContainer>
+      <AccountNavigator />
+    </NavigationContainer>
+  );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList, Keyboard } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 
 import AppTextInput from "../components/AppTextInput";
 import ListItem from "../components/lists/ListItem";
@@ -9,7 +9,8 @@ import AppText from "../components/AppText";
 
 import colors from "../config/colors";
 
-// this is for testing purposes only
+// this is for testing purposes only will be replaced once we are making
+// requests to the server and db
 const myBooks = [
   {
     id: 3,
@@ -29,7 +30,7 @@ const myBooks = [
   {
     id: 2,
     title: "Feminism Unfinished",
-    rating: 2,
+    rating: 10,
     image: "https://images-na.ssl-images-amazon.com/images/I/81oKhHdzr+L.jpg",
     author: "Dorothy Sue Cobble",
   },
@@ -39,7 +40,6 @@ export default function MyBookShelfScreen() {
   const [searchResults, setSearchResults] = useState([]);
 
   const bookSearch = (text) => {
-    // Keyboard.dismiss();
     if (text) {
       const searchTerm = text;
 

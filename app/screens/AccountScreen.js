@@ -25,7 +25,7 @@ const menuItems = [
     targetScreen: "Recommended",
   },
   {
-    title: "community Library",
+    title: "Community Library",
     icon: {
       name: "library-shelves",
       backgroundColor: colors.subTitle,

@@ -54,8 +54,8 @@ export default function BookDetailsScreen({ route }) {
       <View style={styles.userContainer}>
         <ListItem
           image={require("../assets/bookbackground.jpeg")}
-          title="Rick"
-          subTitle="5 Listings"
+          title="User"
+          subTitle="User Email"
         />
       </View>
       <Image style={styles.image} source={{ uri: listing.image }} />
