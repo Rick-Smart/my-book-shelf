@@ -14,9 +14,10 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required().min(1).label("Name"),
 });
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }) {
   const onLogin = (values) => {
     console.log(values);
+    navigation.navigate("AccountScreen");
     Keyboard.dismiss();
   };
 

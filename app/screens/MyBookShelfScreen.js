@@ -36,7 +36,7 @@ const myBooks = [
   },
 ];
 
-export default function MyBookShelfScreen() {
+export default function MyBookShelfScreen({ navigation }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const bookSearch = (text) => {
@@ -61,7 +61,7 @@ export default function MyBookShelfScreen() {
     <Screen style={styles.screen}>
       <View>
         <ListItem
-          onPress={() => console.log("account details")}
+          onPress={() => navigation.navigate("AccountScreen")}
           title="User Name"
           subTitle="user Email"
           image={require("../assets/bookbackground.jpeg")}

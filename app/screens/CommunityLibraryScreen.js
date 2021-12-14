@@ -39,7 +39,7 @@ const myBooks = [
   },
 ];
 
-export default function CommunityLibraryScreen() {
+export default function CommunityLibraryScreen({ navigation }) {
   const [searchResults, setSearchResults] = useState(myBooks);
 
   const bookSearch = (text) => {
@@ -65,7 +65,7 @@ export default function CommunityLibraryScreen() {
     <Screen style={styles.screen}>
       <View>
         <ListItem
-          onPress={() => console.log("account details")}
+          onPress={() => navigation.navigate("AccountScreen")}
           title="User Name"
           subTitle="user Email"
           image={require("../assets/bookbackground.jpeg")}

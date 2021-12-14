@@ -14,7 +14,8 @@ const menuItems = [
       name: "book-multiple",
       backgroundColor: colors.primary,
     },
-    targetScreen: "BookShelf",
+    targetScreen: "MyBookShelfScreen",
+    tabName: "MyBookShelf",
   },
   {
     title: "Recommended Books",
@@ -22,7 +23,8 @@ const menuItems = [
       name: "book-plus-multiple",
       backgroundColor: colors.secondary,
     },
-    targetScreen: "Recommended",
+    targetScreen: "RecommendedScreen",
+    tabName: "Recommended",
   },
   {
     title: "Community Library",
@@ -30,11 +32,12 @@ const menuItems = [
       name: "library-shelves",
       backgroundColor: colors.subTitle,
     },
-    targetScreen: "Messages",
+    targetScreen: "CommunityLibraryScreen",
+    tabName: "CommunityLibrary",
   },
 ];
 
-export default function AccountScreen() {
+export default function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -58,7 +61,9 @@ export default function AccountScreen() {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
-              onPress={() => console.log(item.title)}
+              onPress={() =>
+                navigation.navigate(item.targetScreen, item.tabName)
+              }
             />
           )}
           ItemSeparatorComponent={ListItemSeparator}
@@ -66,8 +71,8 @@ export default function AccountScreen() {
       </View>
       <View style={styles.logoutContainer}>
         <ListItem
-          title="log out"
-          onPress={() => console.log("log out")}
+          title="Log Out"
+          onPress={() => navigation.navigate("logOut")}
           IconComponent={
             <AppIcon name="logout" backgroundColor={colors.subTitle} />
           }

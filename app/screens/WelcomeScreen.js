@@ -8,6 +8,7 @@ export default function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       style={styles.backgroundImage}
+      blurRadius={1}
       source={require("../assets/bookbackground.jpeg")}
     >
       <View style={styles.logoContainer}>
