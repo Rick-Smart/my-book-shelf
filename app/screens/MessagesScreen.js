@@ -2,16 +2,17 @@ import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 
 import AppIcon from "../components/AppIcon";
+import AppMessages from "../components/AppMessages";
 import { ListItem, ListItemSeparator } from "../components/lists";
 import Screen from "../components/Screen";
 
 import colors from "../config/colors";
 
-const menuItems = [
+const messages = [
   {
     title: "My Book Shelf",
     icon: {
-      name: "book-multiple",
+      name: "email",
       backgroundColor: colors.primary,
     },
     targetScreen: "MyBookShelfScreen",
@@ -44,9 +45,27 @@ const menuItems = [
     targetScreen: "MessagesScreen",
     tabName: "Messages",
   },
+  {
+    title: "MoreMessages",
+    icon: {
+      name: "email",
+      backgroundColor: colors.blue,
+    },
+    targetScreen: "MessagesScreen",
+    tabName: "Messages",
+  },
+  {
+    title: "LotsOMessages",
+    icon: {
+      name: "email",
+      backgroundColor: colors.blue,
+    },
+    targetScreen: "MessagesScreen",
+    tabName: "Messages",
+  },
 ];
 
-export default function AccountScreen({ navigation }) {
+export default function MessagesScreen() {
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -58,32 +77,15 @@ export default function AccountScreen({ navigation }) {
       </View>
       <View style={styles.menuContainer}>
         <FlatList
-          data={menuItems}
-          keyExtractor={(menuItem) => menuItem.title.toString()}
+          data={messages}
+          keyExtractor={(messageItem) => messageItem.title.toString()}
           renderItem={({ item }) => (
-            <ListItem
-              title={item.title}
-              IconComponent={
-                <AppIcon
-                  name={item.icon.name}
-                  backgroundColor={item.icon.backgroundColor}
-                />
-              }
-              onPress={() =>
-                navigation.navigate(item.targetScreen, item.tabName)
-              }
-            />
+            <AppMessages 
+            title={item.title} 
+            // onPress={() => console.log(item)}
+             />
           )}
           ItemSeparatorComponent={ListItemSeparator}
-        />
-      </View>
-      <View style={styles.logoutContainer}>
-        <ListItem
-          title="Log Out"
-          onPress={() => console.log("log out")}
-          IconComponent={
-            <AppIcon name="logout" backgroundColor={colors.subTitle} />
-          }
         />
       </View>
     </Screen>
@@ -96,11 +98,6 @@ const styles = StyleSheet.create({
   },
   container: {
     marginVertical: 20,
-  },
-  logoutContainer: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
   },
   menuContainer: {
     paddingTop: 10,

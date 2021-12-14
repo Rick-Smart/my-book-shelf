@@ -16,7 +16,6 @@ const validationSchema = Yup.object().shape({
 export default function LoginScreen({ navigation }) {
   const onLogin = (values) => {
     console.log(values);
-    navigation.navigate("AccountScreen");
     Keyboard.dismiss();
   };
 

@@ -7,7 +7,6 @@ import AppButton from "../components/AppButton";
 import colors from "../config/colors";
 import Screen from "../components/Screen";
 
-
 // this is for testing purposes only
 const recommendedBooks = [
   {
@@ -31,7 +30,7 @@ const recommendedBooks = [
   },
 ];
 
-export default function RecommendedScreen() {
+export default function RecommendedScreen({ navigation }) {
   const [recomendations, setRecommendations] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -58,7 +57,7 @@ export default function RecommendedScreen() {
             title={item.title}
             subtitle={"Rating: " + item.rating}
             imageUrl={item.image}
-            onPress={() => console.log(item.title)}
+            onPress={() => navigation.navigate("RecommendedListing", item )}
           />
         )}
       />

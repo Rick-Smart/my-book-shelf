@@ -10,4 +10,6 @@ export default {
   logout: "#ffe66d",
   medium: "#6e6969",
   dark: "#0c0c0c",
+  jet: "#292929",
+  blue: "dodgerblue",
 };

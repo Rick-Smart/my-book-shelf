@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Image, ScrollView, FlatList } from "react-native";
 
 import AppText from "../components/AppText";
@@ -8,8 +8,8 @@ import BookOptions from "../components/BookOptions";
 
 import colors from "../config/colors";
 
-export default function BookDetailsScreen({ route }) {
-  //   const listing = route.params;
+export default function BookDetailsScreen({ route, navigation }) {
+  const listing = route.params;
 
   // this function is being used to change the options of the book and will
   // need to be changed later once we've added redux to the app
@@ -35,20 +35,6 @@ export default function BookDetailsScreen({ route }) {
     },
   ];
 
-  // this is for testing purposes only and will be switched out once we start
-  // using the navigation
-  const listing = {
-    image:
-      "https://images-na.ssl-images-amazon.com/images/I/61YufTqMJ4L._AC_UL600_SR600,600_.jpg",
-    title: "Enviromental Policy",
-    author: "Norman J.Vig",
-    owned: false,
-    loanable: false,
-    recommend: false,
-    rating: 5,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  };
-
   return (
     <Screen style={styles.screen}>
       <View style={styles.userContainer}>
@@ -56,6 +42,7 @@ export default function BookDetailsScreen({ route }) {
           image={require("../assets/bookbackground.jpeg")}
           title="User"
           subTitle="User Email"
+          onPress={() => navigation.navigate("Account")}
         />
       </View>
       <Image style={styles.image} source={{ uri: listing.image }} />

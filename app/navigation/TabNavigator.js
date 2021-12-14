@@ -2,10 +2,14 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import RecommendedNavigator from "./RecommendedNavigator";
+import MyBookShelfNavigator from "./MyBookShelfNavigator";
+
 import MyBookShelfScreen from "../screens/MyBookShelfScreen";
-import RecommendedScreen from "../screens/RecommendedScreen";
 import CommunityLibraryScreen from "../screens/CommunityLibraryScreen";
+
 import colors from "../config/colors";
+import CommunityNavigator from "./CommunityNavigator";
 
 const Tab = createBottomTabNavigator();
 export default TabNavigator = ({ route }) => (
@@ -21,7 +25,7 @@ export default TabNavigator = ({ route }) => (
   >
     <Tab.Screen
       name="MyBookShelf"
-      component={MyBookShelfScreen}
+      component={MyBookShelfNavigator}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons
@@ -34,7 +38,7 @@ export default TabNavigator = ({ route }) => (
     />
     <Tab.Screen
       name="Recommended"
-      component={RecommendedScreen}
+      component={RecommendedNavigator}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons
@@ -47,7 +51,7 @@ export default TabNavigator = ({ route }) => (
     />
     <Tab.Screen
       name="CommunityLibrary"
-      component={CommunityLibraryScreen}
+      component={CommunityNavigator}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons

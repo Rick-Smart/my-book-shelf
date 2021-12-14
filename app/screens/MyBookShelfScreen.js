@@ -61,7 +61,7 @@ export default function MyBookShelfScreen({ navigation }) {
     <Screen style={styles.screen}>
       <View>
         <ListItem
-          onPress={() => navigation.navigate("AccountScreen")}
+          onPress={() => navigation.navigate("Account")}
           title="User Name"
           subTitle="user Email"
           image={require("../assets/bookbackground.jpeg")}
@@ -92,7 +92,7 @@ export default function MyBookShelfScreen({ navigation }) {
                 title={item.title}
                 subtitle={"Rating: " + item.rating}
                 imageUrl={item.image}
-                onPress={() => console.log(item.title)}
+                onPress={() => navigation.navigate("MyBookListing", item)}
               />
             )}
           />

@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+
+import navigationTheme from "./app/navigation/navigationTheme";
 
 import AccountNavigator from "./app/navigation/AccountNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
-import TabNavigator from "./app/navigation/TabNavigator";
+
+import MessagesScreen from "./app/screens/MessagesScreen";
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
+  const handleLogin = (userData) => {
+    if (!userData) return;
+
+    setUser(userData);
+  };
+
+  const handleLogOut = () => {
+    setUser(null);
+  };
+
   return (
-    <NavigationContainer>
-      <AccountNavigator />
+    <NavigationContainer theme={navigationTheme}>
+      {user ? <AuthNavigator /> : <AccountNavigator />}
     </NavigationContainer>
+    // <MessagesScreen />
   );
 }
