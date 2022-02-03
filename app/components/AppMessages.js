@@ -7,7 +7,12 @@ import AppText from "../components/AppText";
 import AppIcon from "../components/AppIcon";
 import colors from "../config/colors";
 
-export default function AppMessages({ title, onPress, renderRightActions }) {
+export default function AppMessages({
+  title,
+  user,
+  onPress,
+  renderRightActions,
+}) {
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
@@ -18,6 +23,9 @@ export default function AppMessages({ title, onPress, renderRightActions }) {
             backgroundColor={colors.primary}
           />
           <View style={styles.detailsContainer}>
+            <AppText style={styles.title} numberOfLines={1}>
+              {user}
+            </AppText>
             <AppText style={styles.title} numberOfLines={1}>
               {title}
             </AppText>

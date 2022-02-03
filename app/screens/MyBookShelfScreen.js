@@ -16,6 +16,7 @@ const myBooks = [
     id: 1,
     title: "Through the Arc Of The Rain Forest",
     rating: 5,
+    author: "Karen Tei Yamashita",
     image: "https://m.media-amazon.com/images/I/41opg4cRxFL.jpg",
     text: "What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   },
@@ -23,6 +24,7 @@ const myBooks = [
     id: 2,
     title: "Feminism Unfinished",
     rating: 2,
+    author: "Doroty Sue Cobble",
     image: "https://images-na.ssl-images-amazon.com/images/I/81oKhHdzr+L.jpg",
     text: "What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   },
@@ -30,6 +32,7 @@ const myBooks = [
     id: 3,
     title: "Enviromental Policy",
     rating: 4,
+    author: "Norman J. Vig",
     image:
       "https://images-na.ssl-images-amazon.com/images/I/61YufTqMJ4L._AC_UL600_SR600,600_.jpg",
     text: "What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -105,7 +108,7 @@ export default function MyBookShelfScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     padding: 10,
-    backgroundColor: colors.grey,
+    backgroundColor: colors.light,
   },
   searchContainer: {
     paddingVertical: 20,

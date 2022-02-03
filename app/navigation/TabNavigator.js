@@ -19,8 +19,10 @@ export default TabNavigator = ({ route }) => (
       headerShown: false,
       tabBarActiveBackgroundColor: colors.primary,
       tabBarActiveTintColor: colors.subTitle,
-      tabBarInactiveBackgroundColor: colors.grey,
-      tabBarInactiveTintColor: colors.light,
+      tabBarInactiveBackgroundColor: colors.light,
+      tabBarInactiveTintColor: colors.jet,
+      tabBarShowLabel: false,
+      tabBarStyle: { backgroundColor: colors.primary },
     }}
   >
     <Tab.Screen
@@ -30,7 +32,7 @@ export default TabNavigator = ({ route }) => (
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons
             name="book-multiple"
-            size={size}
+            size={size * 1.5}
             color={color}
           />
         ),
@@ -43,7 +45,7 @@ export default TabNavigator = ({ route }) => (
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons
             name="book-plus-multiple"
-            size={size}
+            size={size * 1.5}
             color={color}
           />
         ),
@@ -56,7 +58,7 @@ export default TabNavigator = ({ route }) => (
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons
             name="library-shelves"
-            size={size}
+            size={size * 1.5}
             color={color}
           />
         ),

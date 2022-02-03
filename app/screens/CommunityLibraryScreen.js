@@ -110,7 +110,7 @@ export default function CommunityLibraryScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     padding: 10,
-    backgroundColor: colors.grey,
+    backgroundColor: colors.light,
   },
   searchContainer: {
     paddingVertical: 20,
