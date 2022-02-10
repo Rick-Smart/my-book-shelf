@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "rick-s",
     "name": "my-book-shelf",
     "slug": "my-book-shelf",
     "version": "1.0.0",
@@ -13,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -27,6 +26,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
