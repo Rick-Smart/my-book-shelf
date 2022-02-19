@@ -18,13 +18,13 @@ const menuItems = [
     tabName: "MyBookShelf",
   },
   {
-    title: "Recommended Books",
+    title: "Add Books to Shelf",
     icon: {
       name: "book-plus-multiple",
       backgroundColor: colors.secondary,
     },
-    targetScreen: "RecommendedScreen",
-    tabName: "Recommended",
+    targetScreen: "AddBooksScreen",
+    tabName: "AddBooks",
   },
   {
     title: "Community Library",
@@ -51,8 +51,8 @@ export default function AccountScreen({ navigation }) {
     <Screen style={styles.screen}>
       <View style={styles.container}>
         <ListItem
-          title="User Name"
-          subTitle="user Email"
+          title="Amber H."
+          subTitle="aquarius_darling226"
           image={require("../assets/bookbackground.jpeg")}
         />
       </View>

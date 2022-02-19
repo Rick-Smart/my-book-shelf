@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import RecommendedNavigator from "./RecommendedNavigator";
+import AddBooksNavigator from "./AddBooksNavigator";
 import MyBookShelfNavigator from "./MyBookShelfNavigator";
 
 import MyBookShelfScreen from "../screens/MyBookShelfScreen";
@@ -39,8 +39,8 @@ export default TabNavigator = ({ route }) => (
       }}
     />
     <Tab.Screen
-      name="Recommended"
-      component={RecommendedNavigator}
+      name="AddBooks"
+      component={AddBooksNavigator}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons

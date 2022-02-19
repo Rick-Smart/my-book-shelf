@@ -1,6 +1,7 @@
 {
   "expo": {
     "owner": "rick-s",
+    "primaryColor": "#AD343E",
     "name": "my-book-shelf",
     "slug": "my-book-shelf",
     "version": "1.0.0",
@@ -27,6 +28,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "Ambers class library"
   }
 }

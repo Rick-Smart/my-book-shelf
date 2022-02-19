@@ -6,8 +6,6 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import AccountNavigator from "./app/navigation/AccountNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 
-import MessagesScreen from "./app/screens/MessagesScreen";
-
 export default function App() {
   const [user, setUser] = useState(null);
 
@@ -25,6 +23,5 @@ export default function App() {
     <NavigationContainer theme={navigationTheme}>
       {user ? <AuthNavigator /> : <AccountNavigator />}
     </NavigationContainer>
-    // <MessagesScreen />
   );
 }

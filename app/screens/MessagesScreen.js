@@ -74,8 +74,8 @@ export default function MessagesScreen({ navigation }) {
     <Screen style={styles.screen}>
       <View style={styles.container}>
         <ListItem
-          title="User Name"
-          subTitle="user Email"
+          title="Amber H."
+          subTitle="aquarius_darling226"
           image={require("../assets/bookbackground.jpeg")}
           onPress={() => navigation.navigate("Account")}
         />
@@ -86,7 +86,7 @@ export default function MessagesScreen({ navigation }) {
           keyExtractor={(messageItem) => messageItem.title.toString()}
           renderItem={({ item }) => (
             <AppMessages
-            user={item.user}
+              user={item.user}
               title={item.title}
               renderRightActions={() => (
                 <ListItemDeleteAction

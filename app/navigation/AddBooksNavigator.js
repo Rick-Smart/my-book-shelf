@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import RecommendedScreen from "../screens/RecommendedScreen";
+import AddBookScreen from "../screens/AddBooksScreen";
 import BookDetailsScreen from "../screens/BookDetailsScreen";
 
 const Stack = createStackNavigator();
@@ -13,7 +13,7 @@ export default RecommendedNavigator = () => (
       presentation: "modal",
     }}
   >
-    <Stack.Screen name="RecommendedScreen" component={RecommendedScreen} />
+    <Stack.Screen name="AddBookScreen" component={AddBookScreen} />
     <Stack.Screen name="RecommendedListing" component={BookDetailsScreen} />
   </Stack.Navigator>
 );

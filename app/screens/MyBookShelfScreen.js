@@ -65,8 +65,8 @@ export default function MyBookShelfScreen({ navigation }) {
       <View>
         <ListItem
           onPress={() => navigation.navigate("Account")}
-          title="User Name"
-          subTitle="user Email"
+          title="Amber H."
+          subTitle="aquarius_darling226"
           image={require("../assets/bookbackground.jpeg")}
         />
       </View>

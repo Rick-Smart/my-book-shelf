@@ -37,36 +37,38 @@ export default function BookDetailsScreen({ route, navigation }) {
 
   return (
     <Screen style={styles.screen}>
-      <View style={styles.userContainer}>
-        <ListItem
-          image={require("../assets/bookbackground.jpeg")}
-          title="User"
-          subTitle="User Email"
-          onPress={() => navigation.navigate("Account")}
-        />
-      </View>
-      <Image style={styles.image} source={{ uri: listing.image }} />
-      <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>{listing.title}</AppText>
-        <AppText style={styles.author}>By: {listing.author}</AppText>
-        <AppText style={styles.rating}>Rating: {listing.rating}</AppText>
-        <View style={styles.bookOptionsContainer}>
-          <FlatList
-            horizontal={true}
-            data={options}
-            keyExtractor={(option) => option.data}
-            renderItem={({ item }) => (
-              <BookOptions
-                name={item.name}
-                data={item.data}
-                onPress={(name) => handleOptions(name)}
-              />
-            )}
+      <ScrollView>
+        <View style={styles.userContainer}>
+          <ListItem
+            image={require("../assets/bookbackground.jpeg")}
+            title="Amber H."
+            subTitle="aquarius_darling226"
+            onPress={() => navigation.navigate("Account")}
           />
         </View>
-      </View>
-      <ScrollView style={styles.textContainer}>
-        <AppText style={styles.text}>{listing.text}</AppText>
+        <Image style={styles.image} source={{ uri: listing.image }} />
+        <View style={styles.detailsContainer}>
+          <AppText style={styles.title}>{listing.title}</AppText>
+          <AppText style={styles.author}>By: {listing.author}</AppText>
+          <AppText style={styles.rating}>Rating: {listing.rating}</AppText>
+          <View style={styles.bookOptionsContainer}>
+            <FlatList
+              horizontal={true}
+              data={options}
+              keyExtractor={(option) => option.data}
+              renderItem={({ item }) => (
+                <BookOptions
+                  name={item.name}
+                  data={item.data}
+                  onPress={(name) => handleOptions(name)}
+                />
+              )}
+            />
+          </View>
+        </View>
+        <ScrollView style={styles.textContainer}>
+          <AppText style={styles.text}>{listing.text}</AppText>
+        </ScrollView>
       </ScrollView>
     </Screen>
   );
