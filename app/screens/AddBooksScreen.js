@@ -6,43 +6,29 @@ import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import colors from "../config/colors";
+import image from "../config/imageUrls";
 import Screen from "../components/Screen";
 import { ListItem } from "../components/lists";
-
-const Base_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+import googleApi from "../api/google";
 
 export default function AddBooksScreen({ navigation }) {
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const bookSearch = (text) => {
-    const query = Base_URL + text;
-
-    try {
-      fetch(query)
-        .then((data) => data.json())
-        .then((books) => {
-          if (books !== undefined) {
-            return (results = books.items.map(({ volumeInfo }) => {
-              return {
-                id: volumeInfo.infoLink,
-                title: volumeInfo.title,
-                authors: volumeInfo.authors,
-                description: volumeInfo.description,
-                image: volumeInfo?.imageLinks?.thumbnail,
-                link: volumeInfo.infoLink,
-                rating: volumeInfo?.averageRating,
-              };
-            }));
-          }
-        })
-        .then((results) => {
-          setSearchResults(results);
-        });
-    } catch (error) {
-      console.log(error.message);
+  const bookSearch = async (text) => {
+    // setting loading to true while searching for books and display our loading screen
+    setLoading(true);
+    // search google for books and organize them on the server
+    const response = await googleApi.getBooks(text);
+    // set our local state
+    if (!response.problem) {
+      setSearchResults(response);
+    } else {
+      setError(true);
     }
+    // turn off loading and hide our loading screen
+    setLoading(false);
   };
 
   return (
@@ -59,17 +45,19 @@ export default function AddBooksScreen({ navigation }) {
         <>
           <View style={styles.errorContainer}>
             <AppText>Couldn't find the book you're lookings for...</AppText>
-            <AppButton title="retry" onPress={() => console.log(error)} />
+            <AppButton title="retry" onPress={() => setError(false)} />
           </View>
         </>
       )}
-      <View style={styles.searchContainer}>
-        <AppTextInput
-          icon={"book-search"}
-          placeholder="Search"
-          onChangeText={(text) => bookSearch(text)}
-        />
-      </View>
+      {!error && (
+        <View style={styles.searchContainer}>
+          <AppTextInput
+            icon={"book-search"}
+            placeholder="Search"
+            onChangeText={(text) => bookSearch(text)}
+          />
+        </View>
+      )}
       {searchResults.length > 0 && (
         <FlatList
           data={searchResults}
@@ -78,7 +66,7 @@ export default function AddBooksScreen({ navigation }) {
             <AppCard
               title={item.title}
               subtitle={"Rating: " + item.rating}
-              imageUrl={item.image}
+              imageUrl={item.image ? item.image : image.noImage}
               onPress={() => navigation.navigate("RecommendedListing", item)}
             />
           )}

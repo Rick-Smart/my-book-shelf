@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 
 import AppTextInput from "../components/AppTextInput";
@@ -6,55 +6,38 @@ import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
 import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
+import booksApi from "../api/books";
 
 import colors from "../config/colors";
 
-// this is for testing purposes only will be replaced once we are making
-// requests to the server and db
-const myBooks = [
-  {
-    id: 1,
-    title: "Through the Arc Of The Rain Forest",
-    rating: 5,
-    author: "Karen Tei Yamashita",
-    image: "https://m.media-amazon.com/images/I/41opg4cRxFL.jpg",
-    text: "What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    id: 2,
-    title: "Feminism Unfinished",
-    rating: 2,
-    author: "Doroty Sue Cobble",
-    image: "https://images-na.ssl-images-amazon.com/images/I/81oKhHdzr+L.jpg",
-    text: "What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    id: 3,
-    title: "Enviromental Policy",
-    rating: 4,
-    author: "Norman J. Vig",
-    image:
-      "https://images-na.ssl-images-amazon.com/images/I/61YufTqMJ4L._AC_UL600_SR600,600_.jpg",
-    text: "What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-];
-
 export default function MyBookShelfScreen({ navigation }) {
   const [searchResults, setSearchResults] = useState([]);
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    loadBooks();
+  }, []);
+
+  const loadBooks = async () => {
+    const response = await booksApi.getBooks();
+    setBooks(response.data);
+  };
 
   const bookSearch = (text) => {
     if (text) {
       const searchTerm = text;
 
       // filter method i'm using to search for books in my array
-      const filteredBooks = myBooks.filter(({ title, author }) => {
+      const filteredBooks = books.filter(({ title, authors }) => {
         return (
           title.toLowerCase().includes(searchTerm) ||
-          author.toLowerCase().includes(searchTerm)
+          authors.toLowerCase().includes(searchTerm)
         );
       });
 
       setSearchResults(filteredBooks);
+
+      console.log(filteredBooks);
     } else {
       setSearchResults([]);
     }
@@ -85,22 +68,39 @@ export default function MyBookShelfScreen({ navigation }) {
         </AppText>
       )}
 
-      {searchResults && (
-        <View>
-          <FlatList
-            data={searchResults}
-            keyExtractor={(listItem) => listItem.id.toString()}
-            renderItem={({ item }) => (
-              <AppCard
-                title={item.title}
-                subtitle={"Rating: " + item.rating}
-                imageUrl={item.image}
-                onPress={() => navigation.navigate("MyBookListing", item)}
+      {searchResults.length > 0
+        ? searchResults && (
+            <View>
+              <FlatList
+                data={searchResults}
+                keyExtractor={(listItem) => listItem._id.toString()}
+                renderItem={({ item }) => (
+                  <AppCard
+                    title={item.title}
+                    subtitle={"Rating: " + item.rating}
+                    imageUrl={item.image}
+                    onPress={() => navigation.navigate("MyBookListing", item)}
+                  />
+                )}
               />
-            )}
-          />
-        </View>
-      )}
+            </View>
+          )
+        : books && (
+            <View>
+              <FlatList
+                data={books}
+                keyExtractor={(listItem) => listItem._id.toString()}
+                renderItem={({ item }) => (
+                  <AppCard
+                    title={item.title}
+                    subtitle={"Rating: " + item.rating}
+                    imageUrl={item.image}
+                    onPress={() => navigation.navigate("MyBookListing", item)}
+                  />
+                )}
+              />
+            </View>
+          )}
     </Screen>
   );
 }
