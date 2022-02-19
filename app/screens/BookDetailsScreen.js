@@ -10,7 +10,6 @@ import colors from "../config/colors";
 
 export default function BookDetailsScreen({ route, navigation }) {
   const listing = route.params;
-
   // this function is being used to change the options of the book and will
   // need to be changed later once we've added redux to the app
   const handleOptions = (option) => {
@@ -49,7 +48,7 @@ export default function BookDetailsScreen({ route, navigation }) {
         <Image style={styles.image} source={{ uri: listing.image }} />
         <View style={styles.detailsContainer}>
           <AppText style={styles.title}>{listing.title}</AppText>
-          <AppText style={styles.author}>By: {listing.author}</AppText>
+          <AppText style={styles.author}>By: {listing.authors}</AppText>
           <AppText style={styles.rating}>Rating: {listing.rating}</AppText>
           <View style={styles.bookOptionsContainer}>
             <FlatList
@@ -67,7 +66,7 @@ export default function BookDetailsScreen({ route, navigation }) {
           </View>
         </View>
         <ScrollView style={styles.textContainer}>
-          <AppText style={styles.text}>{listing.text}</AppText>
+          <AppText style={styles.text}>{listing.description}</AppText>
         </ScrollView>
       </ScrollView>
     </Screen>
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  text: {},
+  text: { color: colors.secondary, fontSize: 18, fontWeight: "bold" },
   textContainer: {
     paddingHorizontal: 20,
     width: "100%",
