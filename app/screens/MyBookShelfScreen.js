@@ -17,21 +17,22 @@ export default function MyBookShelfScreen({ navigation }) {
   useEffect(() => {
     loadBooks();
   }, []);
-
+  // our api call to the db to fetch all of our saved books
   const loadBooks = async () => {
     const response = await booksApi.getBooks();
     setBooks(response.data);
   };
-
+  // our book search method (still needs tweaking) 2/19/22
   const bookSearch = (text) => {
     if (text) {
       const searchTerm = text;
 
-      // filter method i'm using to search for books in my array
+      // filter method i'm using to search for books in my array (still needs tweaking) 2/19/22
       const filteredBooks = books.filter(({ title, authors }) => {
+        const firstAuthor = authors[0];
         return (
           title.toLowerCase().includes(searchTerm) ||
-          authors.toLowerCase().includes(searchTerm)
+          firstAuthor.toLowerCase().includes(searchTerm)
         );
       });
 

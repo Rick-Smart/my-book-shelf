@@ -16,10 +16,19 @@ export default function BookDetailsScreen({ route, navigation }) {
   const handleOptions = (option) => {
     listing[option] = !listing[option];
 
-    
-    // console.log(listing);
+    switch (option) {
+      case "addToBookShelf":
+        handleAddBook(listing);
+        break;
+      case "checkOut":
+        break;
+      case "returnToBookShelf":
+        break;
+      default:
+        alert("what went wrong?");
+    }
+
     console.log(option);
-    handleAddBook(listing);
   };
 
   const handleAddBook = async (book) => {
@@ -36,7 +45,7 @@ export default function BookDetailsScreen({ route, navigation }) {
     },
     {
       name: "share-outline",
-      data: "checkout",
+      data: "checkOut",
       onPress: handleOptions,
     },
     {
