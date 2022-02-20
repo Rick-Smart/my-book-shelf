@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Image, ScrollView, FlatList } from "react-native";
 
 import AppText from "../components/AppText";
+import bookApi from "../api/books";
 import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
 import BookOptions from "../components/BookOptions";
@@ -14,22 +15,33 @@ export default function BookDetailsScreen({ route, navigation }) {
   // need to be changed later once we've added redux to the app
   const handleOptions = (option) => {
     listing[option] = !listing[option];
+
+    
+    // console.log(listing);
+    console.log(option);
+    handleAddBook(listing);
+  };
+
+  const handleAddBook = async (book) => {
+    const result = await bookApi.addBook(book);
+    if (!result.ok) return alert("could not save your book");
+    alert("Successfully saved your book!");
   };
 
   const options = [
     {
       name: "bookshelf",
-      data: "owned",
+      data: "addToBookShelf",
       onPress: handleOptions,
     },
     {
       name: "share-outline",
-      data: "loanable",
+      data: "checkout",
       onPress: handleOptions,
     },
     {
       name: "thumb-up",
-      data: "recommend",
+      data: "returnToBookShelf",
       onPress: handleOptions,
     },
   ];

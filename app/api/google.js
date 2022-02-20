@@ -16,7 +16,7 @@ const getBooks = (book) =>
       return {
         id: volumeInfo.infoLink,
         title: volumeInfo.title,
-        authors: volumeInfo.authors,
+        authors: volumeInfo.authors[0],
         description: volumeInfo.description,
         image: volumeInfo?.imageLinks?.thumbnail,
         link: volumeInfo.infoLink,
