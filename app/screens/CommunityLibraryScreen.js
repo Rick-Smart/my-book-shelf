@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableHighlight,
-} from "react-native";
+import { View, StyleSheet, FlatList, TouchableHighlight } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 
-import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import ListItem from "../components/lists/ListItem";
@@ -16,21 +11,20 @@ import Student from "../components/Student";
 import studentApi from "../api/students";
 
 import colors from "../config/colors";
+import AppButton from "../components/AppButton";
 
-// this is for testing purposes only
-// When we first load this screen we'll pull down all the books
-// within a certain distance from this user and store them in a state
-// variable array that we can search through based on whatever
-// criteria the user selects
-
-export default function CommunityLibraryScreen({ route, navigation }) {
+export default function CommunityLibraryScreen({ navigation }) {
   const [searchResults, setSearchResults] = useState([]);
   const [myStudents, setMyStudents] = useState([]);
 
+  // this is the effect were using to refresh the props of the screen
+  // when ever we add a new student.
+  const isFocused = useIsFocused();
   useEffect(() => {
     loadStudents();
-  }, [route.params]);
+  }, [isFocused]);
 
+  // this is the actual api call to get our students from the db
   const loadStudents = async () => {
     const response = await studentApi.getStudents();
     setMyStudents(response.data);
@@ -72,12 +66,10 @@ export default function CommunityLibraryScreen({ route, navigation }) {
           onChangeText={(text) => studentSearch(text.toLowerCase())}
         />
       </View>
-      {/* this is a temporary button to test adding a new student */}
-      <TouchableHighlight
+      <AppButton
+        title={"Add Student"}
         onPress={() => navigation.navigate("RegisterStudent")}
-      >
-        <AppText>Click to add student</AppText>
-      </TouchableHighlight>
+      />
 
       {searchResults === myStudents && (
         <View style={styles.helperTextContainer}>

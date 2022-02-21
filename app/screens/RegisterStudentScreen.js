@@ -2,8 +2,9 @@ import React from "react";
 import { StyleSheet, View, Keyboard } from "react-native";
 import * as Yup from "yup";
 
-import AppLogo from "../components/AppLogo";
+import AppIcon from "../components/AppIcon";
 import Screen from "../components/Screen";
+import colors from "../config/colors";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 
@@ -17,10 +18,15 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function RegisterStudentScreen({ navigation }) {
+  // this is our apicall to add new students
   const onAddStudent = async (values) => {
     Keyboard.dismiss();
-    const response = await studentApi.addStudent(values);
-    redirect();
+    await studentApi.addStudent(values).then((response) => {
+      if (!response.ok) {
+        console.log(response);
+      }
+      redirect();
+    });
   };
 
   const redirect = () => {
@@ -30,7 +36,12 @@ export default function RegisterStudentScreen({ navigation }) {
   return (
     <Screen style={styles.container}>
       <View style={styles.logoContainer}>
-        <AppLogo size={200} />
+        <AppIcon
+          name={"account-plus"}
+          size={200}
+          backgroundColor={colors.primary}
+          iconColor={colors.subTitle}
+        />
       </View>
       <AppForm
         initialValues={{ email: "", class: "" }}
@@ -61,7 +72,7 @@ export default function RegisterStudentScreen({ navigation }) {
           keyboardType="numeric"
           placeholder="Class"
         />
-        <SubmitButton title="Register" />
+        <SubmitButton title="Add Student" />
       </AppForm>
     </Screen>
   );

@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   screen: {
-    padding: 20,
+    padding: 10,
     backgroundColor: colors.light,
   },
   searchContainer: {

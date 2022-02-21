@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 
 const apiClient = create({
-  baseURL: "http://192.168.0.6:3001/api",
+  baseURL: "https://book-shelf-5000.herokuapp.com/api",
 });
 
 const searchClient = create({
@@ -13,5 +13,9 @@ export default {
   searchClient,
 };
 
-// this will be the baseURL once all of the server features are implimented
-// https://book-shelf-5000.herokuapp.com
+// This is the local address for our server make sure to check
+// ipconfig if this is responding
+// http://192.168.0.6:3001/api
+
+// this is our heroku deployment of the server
+// https://book-shelf-5000.herokuapp.com/api

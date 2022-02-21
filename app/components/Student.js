@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   detailsContainer: {
-    flex: 1,
     marginLeft: 10,
     justifyContent: "center",
   },
