@@ -28,7 +28,7 @@ export default function BookDetailsScreen({ route, navigation }) {
         alert("what went wrong?");
     }
 
-    console.log(option);
+    console.log(listing);
   };
 
   const handleAddBook = async (book) => {

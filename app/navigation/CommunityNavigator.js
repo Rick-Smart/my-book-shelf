@@ -2,7 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CommunityLibraryScreen from "../screens/CommunityLibraryScreen";
-import BookDetailsScreen from "../screens/BookDetailsScreen";
+import StudentDetailsScreen from "../screens/StudentDetailsScreen";
+import RegisterStudentScreen from "../screens/RegisterStudentScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default CommunityNavigator = () => (
       name="CommunityLibraryScreen"
       component={CommunityLibraryScreen}
     />
-    <Stack.Screen name="CommunityListing" component={BookDetailsScreen} />
+    <Stack.Screen name="StudentDetails" component={StudentDetailsScreen} />
+    <Stack.Screen name="RegisterStudent" component={RegisterStudentScreen} />
   </Stack.Navigator>
 );

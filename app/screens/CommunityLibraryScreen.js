@@ -1,11 +1,19 @@
-import React, { useState } from "react";
-import { View, StyleSheet, FlatList, Keyboard } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  TouchableHighlight,
+} from "react-native";
 
 import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
+import Student from "../components/Student";
+
+import studentApi from "../api/students";
 
 import colors from "../config/colors";
 
@@ -14,50 +22,36 @@ import colors from "../config/colors";
 // within a certain distance from this user and store them in a state
 // variable array that we can search through based on whatever
 // criteria the user selects
-const myBooks = [
-  {
-    id: 3,
-    title: "Environmental Policy",
-    rating: 4,
-    image:
-      "https://images-na.ssl-images-amazon.com/images/I/61YufTqMJ4L._AC_UL600_SR600,600_.jpg",
-    author: "Norman J. Vig",
-  },
-  {
-    id: 1,
-    title: "Through The Arc Of The Rain Forest",
-    rating: 5,
-    image: "https://m.media-amazon.com/images/I/41opg4cRxFL.jpg",
-    author: "Karen Tei Yamashita",
-  },
-  {
-    id: 2,
-    title: "Feminism Unfinished",
-    rating: 2,
-    image: "https://images-na.ssl-images-amazon.com/images/I/81oKhHdzr+L.jpg",
-    author: "Dorothy Sue Cobble",
-  },
-];
 
-export default function CommunityLibraryScreen({ navigation }) {
-  const [searchResults, setSearchResults] = useState(myBooks);
+export default function CommunityLibraryScreen({ route, navigation }) {
+  const [searchResults, setSearchResults] = useState([]);
+  const [myStudents, setMyStudents] = useState([]);
 
-  const bookSearch = (text) => {
-    // Keyboard.dismiss();
+  useEffect(() => {
+    loadStudents();
+  }, [route.params]);
+
+  const loadStudents = async () => {
+    const response = await studentApi.getStudents();
+    setMyStudents(response.data);
+  };
+
+  // this is the search feature we're using to tack down students by class or name
+  const studentSearch = (text) => {
     if (text) {
       const searchTerm = text;
 
-      // filter method i'm using to search for books in my array
-      const filteredBooks = myBooks.filter(({ title, author }) => {
+      // filter method i'm using to search for students
+      const filteredStudents = myStudents.filter((item) => {
         return (
-          title.toLowerCase().includes(searchTerm) ||
-          author.toLowerCase().includes(searchTerm)
+          item.name.toLowerCase().includes(searchTerm) ||
+          item.class == searchTerm
         );
       });
 
-      setSearchResults(filteredBooks);
+      setSearchResults(filteredStudents);
     } else {
-      setSearchResults(myBooks);
+      setSearchResults(myStudents);
     }
   };
 
@@ -75,34 +69,56 @@ export default function CommunityLibraryScreen({ navigation }) {
         <AppTextInput
           icon={"book-search"}
           placeholder="Search"
-          onChangeText={(text) => bookSearch(text.toLowerCase())}
+          onChangeText={(text) => studentSearch(text.toLowerCase())}
         />
       </View>
+      {/* this is a temporary button to test adding a new student */}
+      <TouchableHighlight
+        onPress={() => navigation.navigate("RegisterStudent")}
+      >
+        <AppText>Click to add student</AppText>
+      </TouchableHighlight>
 
-      {searchResults === myBooks && (
+      {searchResults === myStudents && (
         <View style={styles.helperTextContainer}>
           <AppText style={styles.helperText}>
-            Search for books from other users by name, author or distance.
+            Search for Students by Name or Class Number.
           </AppText>
         </View>
       )}
-
-      {searchResults && (
-        <View>
-          <FlatList
-            data={searchResults}
-            keyExtractor={(listItem) => listItem.id.toString()}
-            renderItem={({ item }) => (
-              <AppCard
-                title={item.title}
-                subtitle={"Rating: " + item.rating}
-                imageUrl={item.image}
-                onPress={() => navigation.navigate("CommunityListing", item)}
+      {searchResults.length > 0
+        ? searchResults && (
+            <View>
+              <FlatList
+                data={searchResults}
+                keyExtractor={(listItem) => listItem._id.toString()}
+                renderItem={({ item }) => (
+                  <Student
+                    name={item.name}
+                    email={item.email}
+                    classNumber={item.class}
+                    onPress={() => navigation.navigate("StudentDetails", item)}
+                  />
+                )}
               />
-            )}
-          />
-        </View>
-      )}
+            </View>
+          )
+        : myStudents && (
+            <View>
+              <FlatList
+                data={myStudents}
+                keyExtractor={(listItem) => listItem._id.toString()}
+                renderItem={({ item }) => (
+                  <Student
+                    name={item.name}
+                    email={item.email}
+                    classNumber={item.class}
+                    onPress={() => navigation.navigate("StudentDetails", item)}
+                  />
+                )}
+              />
+            </View>
+          )}
     </Screen>
   );
 }

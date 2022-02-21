@@ -6,6 +6,7 @@ import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
 import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
+
 import booksApi from "../api/books";
 
 import colors from "../config/colors";
@@ -37,8 +38,6 @@ export default function MyBookShelfScreen({ navigation }) {
       });
 
       setSearchResults(filteredBooks);
-
-      console.log(filteredBooks);
     } else {
       setSearchResults([]);
     }

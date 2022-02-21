@@ -12,3 +12,6 @@ export default {
   apiClient,
   searchClient,
 };
+
+// this will be the baseURL once all of the server features are implimented
+// https://book-shelf-5000.herokuapp.com
