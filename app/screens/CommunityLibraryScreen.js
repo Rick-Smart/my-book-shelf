@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, TouchableHighlight } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
 import AppText from "../components/AppText";

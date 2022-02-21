@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, ScrollView, FlatList } from "react-native";
 
 import AppText from "../components/AppText";
 import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
+import StudentSelectModal from "../components/StudentSelectModal";
 import BookOptions from "../components/BookOptions";
 
 // our apicalls
@@ -14,6 +15,9 @@ import studentApi from "../api/students";
 import colors from "../config/colors";
 
 export default function BookDetailsScreen({ route, navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [student, setStudent] = useState();
+
   const listing = route.params;
 
   // this function is being used to change the options of the book and will
@@ -26,9 +30,10 @@ export default function BookDetailsScreen({ route, navigation }) {
         handleAddBook(listing);
         break;
       case "checkOut":
-        handleCheckOut(listing);
+        handleStudentSelect();
         break;
       case "returnToBookShelf":
+        handleAddBookToSudent(listing, student);
         break;
       default:
         alert("what went wrong?");
@@ -45,11 +50,24 @@ export default function BookDetailsScreen({ route, navigation }) {
     const result = await bookApi.checkOutBook(book);
     if (!result.ok) return alert("could not update your book");
     alert("Successfully updated your book!");
+    handleAddBookToSudent(listing, student);
   };
 
-  const handleBookAddedToStudent = async (book, studentId) => {
-    const result = await studentApi.addBooks(book, studentId);
-    console.log(result.data);
+  const handleAddBookToSudent = async (book, student) => {
+    const result = await studentApi.addBooks(book, student);
+    if (!result.ok) return alert("could not add your book to student");
+    alert("Successfully added your book to student!");
+  };
+
+  const handleStudentSelect = (studentData) => {
+    setModalVisible(!modalVisible);
+    if (studentData) {
+      setStudent(studentData);
+      console.log(studentData);
+      handleCheckOut(listing);
+    }
+    // now that we have the book data and student data, we can
+    // perform our api call to add book to student
   };
 
   const options = [
@@ -81,6 +99,10 @@ export default function BookDetailsScreen({ route, navigation }) {
             onPress={() => navigation.navigate("Account")}
           />
         </View>
+        <StudentSelectModal
+          modalVisible={modalVisible}
+          onPress={handleStudentSelect}
+        />
         <Image style={styles.image} source={{ uri: listing.image }} />
         <View style={styles.detailsContainer}>
           <AppText style={styles.title}>{listing.title}</AppText>
