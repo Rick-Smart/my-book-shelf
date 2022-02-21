@@ -21,6 +21,3 @@ export default function AppFormField({ name, width, ...otherProps }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {},
-});

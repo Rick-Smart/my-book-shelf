@@ -30,6 +30,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Ambers class library"
+    "description": "Class library management application",
+    "githubUrl": "https://github.com/Rick-Smart/my-book-shelf"
   }
 }

@@ -71,10 +71,10 @@ export default function CommunityLibraryScreen({ navigation }) {
         onPress={() => navigation.navigate("RegisterStudent")}
       />
 
-      {searchResults === myStudents && (
+      {searchResults < 0 && (
         <View style={styles.helperTextContainer}>
           <AppText style={styles.helperText}>
-            Search for Students by Name or Class Number.
+            Search for Students by Name or Class
           </AppText>
         </View>
       )}

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Keyboard } from "react-native";
+import { StyleSheet, View, Keyboard, ScrollView } from "react-native";
 import * as Yup from "yup";
 
 import AppIcon from "../components/AppIcon";
@@ -23,7 +23,7 @@ export default function RegisterStudentScreen({ navigation }) {
     Keyboard.dismiss();
     await studentApi.addStudent(values).then((response) => {
       if (!response.ok) {
-        console.log(response);
+        console.log(response.data);
       }
       redirect();
     });
@@ -35,45 +35,47 @@ export default function RegisterStudentScreen({ navigation }) {
 
   return (
     <Screen style={styles.container}>
-      <View style={styles.logoContainer}>
-        <AppIcon
-          name={"account-plus"}
-          size={200}
-          backgroundColor={colors.primary}
-          iconColor={colors.subTitle}
-        />
-      </View>
-      <AppForm
-        initialValues={{ email: "", class: "" }}
-        validationSchema={validationSchema}
-        onSubmit={(values) => onAddStudent(values)}
-      >
-        <AppFormField
-          name="name"
-          autoCapitalize="words"
-          autoCorrect={false}
-          icon="account"
-          placeholder="Name"
-        />
-        <AppFormField
-          name="email"
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="email"
-          keyboardType="email-address"
-          placeholder="Email"
-          TextContentType="emailAddress"
-        />
-        <AppFormField
-          name="class"
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="account-group"
-          keyboardType="numeric"
-          placeholder="Class"
-        />
-        <SubmitButton title="Add Student" />
-      </AppForm>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <View style={styles.logoContainer}>
+          <AppIcon
+            name={"account-plus"}
+            size={150}
+            backgroundColor={colors.primary}
+            iconColor={colors.subTitle}
+          />
+        </View>
+        <AppForm
+          initialValues={{ email: "", class: "" }}
+          validationSchema={validationSchema}
+          onSubmit={(values) => onAddStudent(values)}
+        >
+          <AppFormField
+            name="name"
+            autoCapitalize="words"
+            autoCorrect={false}
+            icon="account"
+            placeholder="Name"
+          />
+          <AppFormField
+            name="email"
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon="email"
+            keyboardType="email-address"
+            placeholder="Email"
+            TextContentType="emailAddress"
+          />
+          <AppFormField
+            name="class"
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon="account-group"
+            keyboardType="numeric"
+            placeholder="Class"
+          />
+          <SubmitButton title="Add Student" />
+        </AppForm>
+      </ScrollView>
     </Screen>
   );
 }

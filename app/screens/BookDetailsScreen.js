@@ -2,15 +2,20 @@ import React from "react";
 import { View, StyleSheet, Image, ScrollView, FlatList } from "react-native";
 
 import AppText from "../components/AppText";
-import bookApi from "../api/books";
 import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
 import BookOptions from "../components/BookOptions";
 
+// our apicalls
+import bookApi from "../api/books";
+import studentApi from "../api/students";
+
+// config folder with all our defaults
 import colors from "../config/colors";
 
 export default function BookDetailsScreen({ route, navigation }) {
   const listing = route.params;
+
   // this function is being used to change the options of the book and will
   // need to be changed later once we've added redux to the app
   const handleOptions = (option) => {
@@ -21,20 +26,30 @@ export default function BookDetailsScreen({ route, navigation }) {
         handleAddBook(listing);
         break;
       case "checkOut":
+        handleCheckOut(listing);
         break;
       case "returnToBookShelf":
         break;
       default:
         alert("what went wrong?");
     }
-
-    console.log(listing);
   };
 
   const handleAddBook = async (book) => {
     const result = await bookApi.addBook(book);
     if (!result.ok) return alert("could not save your book");
     alert("Successfully saved your book!");
+  };
+
+  const handleCheckOut = async (book) => {
+    const result = await bookApi.checkOutBook(book);
+    if (!result.ok) return alert("could not update your book");
+    alert("Successfully updated your book!");
+  };
+
+  const handleBookAddedToStudent = async (book, studentId) => {
+    const result = await studentApi.addBooks(book, studentId);
+    console.log(result.data);
   };
 
   const options = [

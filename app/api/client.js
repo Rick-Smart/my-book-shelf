@@ -1,21 +1,17 @@
 import { create } from "apisauce";
+import { LOCAL_API, SERVER_API, GOOGLE_API } from "@env";
 
+
+// in production mode this neds to be set to SERVER_API
 const apiClient = create({
-  baseURL: "https://book-shelf-5000.herokuapp.com/api",
+  baseURL: LOCAL_API,
 });
 
 const searchClient = create({
-  baseURL: "https://www.googleapis.com/books/v1/volumes?q=",
+  baseURL: GOOGLE_API,
 });
 
 export default {
   apiClient,
   searchClient,
 };
-
-// This is the local address for our server make sure to check
-// ipconfig if this is responding
-// http://192.168.0.6:3001/api
-
-// this is our heroku deployment of the server
-// https://book-shelf-5000.herokuapp.com/api
