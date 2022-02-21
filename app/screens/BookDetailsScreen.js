@@ -46,6 +46,20 @@ export default function BookDetailsScreen({ route, navigation }) {
     alert("Successfully saved your book!");
   };
 
+  // this function fires off when the checkout option is selected and prompts
+  // the user to select the student thay they want to check this book out with
+  const handleStudentSelect = (studentData) => {
+    setModalVisible(!modalVisible);
+    // now that we have the book data and student data, we can
+    // perform our api call to add book to student
+    if (studentData) {
+      setStudent(studentData);
+      console.log(studentData);
+      handleCheckOut(listing);
+    }
+  };
+
+  // this function updates our books to reflect that they've been checked out
   const handleCheckOut = async (book) => {
     const result = await bookApi.checkOutBook(book);
     if (!result.ok) return alert("could not update your book");
@@ -53,21 +67,12 @@ export default function BookDetailsScreen({ route, navigation }) {
     handleAddBookToSudent(listing, student);
   };
 
+  // once the book has been registered as checkedout this function will then run
+  // and add the book to the selected student
   const handleAddBookToSudent = async (book, student) => {
     const result = await studentApi.addBooks(book, student);
     if (!result.ok) return alert("could not add your book to student");
     alert("Successfully added your book to student!");
-  };
-
-  const handleStudentSelect = (studentData) => {
-    setModalVisible(!modalVisible);
-    if (studentData) {
-      setStudent(studentData);
-      console.log(studentData);
-      handleCheckOut(listing);
-    }
-    // now that we have the book data and student data, we can
-    // perform our api call to add book to student
   };
 
   const options = [
