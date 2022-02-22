@@ -16,7 +16,6 @@ import colors from "../config/colors";
 
 export default function BookDetailsScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [student, setStudent] = useState();
 
   const listing = route.params;
 
@@ -30,10 +29,9 @@ export default function BookDetailsScreen({ route, navigation }) {
         handleAddBook(listing);
         break;
       case "checkOut":
-        handleStudentSelect();
+        handleModalVisible();
         break;
       case "returnToBookShelf":
-        handleAddBookToSudent(listing, student);
         break;
       default:
         alert("what went wrong?");
@@ -41,38 +39,52 @@ export default function BookDetailsScreen({ route, navigation }) {
   };
 
   const handleAddBook = async (book) => {
-    const result = await bookApi.addBook(book);
-    if (!result.ok) return alert("could not save your book");
-    alert("Successfully saved your book!");
+    try {
+      await bookApi.addBook(book).then((result) => {
+        console.log(result);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleModalVisible = () => {
+    setModalVisible(!modalVisible);
   };
 
   // this function fires off when the checkout option is selected and prompts
   // the user to select the student thay they want to check this book out with
   const handleStudentSelect = (studentData) => {
-    setModalVisible(!modalVisible);
     // now that we have the book data and student data, we can
     // perform our api call to add book to student
-    if (studentData) {
-      setStudent(studentData);
-      console.log(studentData);
-      handleCheckOut(listing);
+    try {
+      handleCheckOut(listing, studentData);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   // this function updates our books to reflect that they've been checked out
-  const handleCheckOut = async (book) => {
-    const result = await bookApi.checkOutBook(book);
-    if (!result.ok) return alert("could not update your book");
-    alert("Successfully updated your book!");
-    handleAddBookToSudent(listing, student);
+  const handleCheckOut = async (book, studentData) => {
+    try {
+      await bookApi.checkOutBook(book).then(() => {
+        handleAddBookToSudent(listing, studentData);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // once the book has been registered as checkedout this function will then run
   // and add the book to the selected student
   const handleAddBookToSudent = async (book, student) => {
-    const result = await studentApi.addBooks(book, student);
-    if (!result.ok) return alert("could not add your book to student");
-    alert("Successfully added your book to student!");
+    try {
+      await studentApi.addBooksToStudent(book, student).then((result) => {
+        console.log(result);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const options = [
@@ -95,18 +107,19 @@ export default function BookDetailsScreen({ route, navigation }) {
 
   return (
     <Screen style={styles.screen}>
+      <View style={styles.userContainer}>
+        <ListItem
+          image={require("../assets/bookbackground.jpeg")}
+          title="Amber H."
+          subTitle="aquarius_darling226"
+          onPress={() => navigation.navigate("Account")}
+        />
+      </View>
       <ScrollView>
-        <View style={styles.userContainer}>
-          <ListItem
-            image={require("../assets/bookbackground.jpeg")}
-            title="Amber H."
-            subTitle="aquarius_darling226"
-            onPress={() => navigation.navigate("Account")}
-          />
-        </View>
         <StudentSelectModal
           modalVisible={modalVisible}
-          onPress={handleStudentSelect}
+          dismissModal={handleModalVisible}
+          selectStudent={handleStudentSelect}
         />
         <Image style={styles.image} source={{ uri: listing.image }} />
         <View style={styles.detailsContainer}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 
 import AppTextInput from "../components/AppTextInput";
 import ListItem from "../components/lists/ListItem";
@@ -15,9 +16,11 @@ export default function MyBookShelfScreen({ navigation }) {
   const [searchResults, setSearchResults] = useState([]);
   const [books, setBooks] = useState([]);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     loadBooks();
-  }, []);
+  }, [isFocused]);
   // our api call to the db to fetch all of our saved books
   const loadBooks = async () => {
     const response = await booksApi.getBooks();

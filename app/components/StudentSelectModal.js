@@ -11,7 +11,11 @@ import studentApi from "../api/students";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 
-export default function StudentSelectModal({ modalVisible, onPress }) {
+export default function StudentSelectModal({
+  modalVisible,
+  dismissModal,
+  selectStudent,
+}) {
   const [searchResults, setSearchResults] = useState([]);
   const [myStudents, setMyStudents] = useState([]);
 
@@ -46,7 +50,10 @@ export default function StudentSelectModal({ modalVisible, onPress }) {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onShow={() => loadStudents()}
+        onShow={() => {
+          setSearchResults([]);
+          loadStudents();
+        }}
       >
         <View style={styles.modalView}>
           <AppText style={styles.appText}>
@@ -72,8 +79,8 @@ export default function StudentSelectModal({ modalVisible, onPress }) {
                         email={item.email}
                         classNumber={item.class}
                         onPress={() => {
-                          setSearchResults([]);
-                          onPress(item);
+                          selectStudent(item);
+                          dismissModal();
                         }}
                       />
                     )}
@@ -91,8 +98,8 @@ export default function StudentSelectModal({ modalVisible, onPress }) {
                         email={item.email}
                         classNumber={item.class}
                         onPress={() => {
-                          setSearchResults([]);
-                          onPress(item);
+                          selectStudent(item);
+                          dismissModal();
                         }}
                       />
                     )}
@@ -131,9 +138,8 @@ const styles = StyleSheet.create({
     color: colors.danger,
     fontSize: 20,
     fontWeight: "bold",
-    marginVertical: 20,
   },
   appTextInputContainer: {
-    marginVertical: 20,
+    marginVertical: 10,
   },
 });
