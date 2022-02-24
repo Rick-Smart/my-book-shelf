@@ -4,7 +4,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
-import ListItem from "../components/lists/ListItem";
+import UserHeader from "../components/UserHeader";
 import Screen from "../components/Screen";
 import Student from "../components/Student";
 
@@ -52,12 +52,7 @@ export default function CommunityLibraryScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View>
-        <ListItem
-          onPress={() => navigation.navigate("Account")}
-          title="Amber H."
-          subTitle="aquarius_darling226"
-          image={require("../assets/bookbackground.jpeg")}
-        />
+        <UserHeader onPress={() => navigation.navigate("Account")} />
       </View>
       <View style={styles.searchContainer}>
         <AppTextInput

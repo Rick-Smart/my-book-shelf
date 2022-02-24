@@ -8,7 +8,7 @@ import AppButton from "../components/AppButton";
 import colors from "../config/colors";
 import image from "../config/imageUrls";
 import Screen from "../components/Screen";
-import { ListItem } from "../components/lists";
+import UserHeader from "../components/UserHeader";
 import googleApi from "../api/google";
 
 export default function AddBooksScreen({ navigation }) {
@@ -36,12 +36,7 @@ export default function AddBooksScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View>
-        <ListItem
-          onPress={() => navigation.navigate("Account")}
-          title="Amber H."
-          subTitle="aquarius_darling226"
-          image={require("../assets/bookbackground.jpeg")}
-        />
+        <UserHeader onPress={() => navigation.navigate("Account")} />
       </View>
       {error && (
         <>

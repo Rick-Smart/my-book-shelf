@@ -3,11 +3,11 @@ import { View, StyleSheet, FlatList } from "react-native";
 
 import AppMessages from "../components/AppMessages";
 import {
-  ListItem,
   ListItemSeparator,
   ListItemDeleteAction,
 } from "../components/lists";
 import Screen from "../components/Screen";
+import UserHeader from "../components/UserHeader";
 
 import colors from "../config/colors";
 
@@ -73,10 +73,8 @@ export default function MessagesScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
-        <ListItem
-          title="Amber H."
-          subTitle="aquarius_darling226"
-          image={require("../assets/bookbackground.jpeg")}
+        <UserHeader
+          
           onPress={() => navigation.navigate("Account")}
         />
       </View>

@@ -4,6 +4,7 @@ import { View, StyleSheet, FlatList } from "react-native";
 import AppIcon from "../components/AppIcon";
 import { ListItem, ListItemSeparator } from "../components/lists";
 import Screen from "../components/Screen";
+import UserHeader from "../components/UserHeader";
 
 import colors from "../config/colors";
 import menuItems from "../config/menuItems";
@@ -12,11 +13,7 @@ export default function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
-        <ListItem
-          title="Amber H."
-          subTitle="aquarius_darling226"
-          image={require("../assets/bookbackground.jpeg")}
-        />
+        <UserHeader />
       </View>
       <View style={styles.menuContainer}>
         <FlatList

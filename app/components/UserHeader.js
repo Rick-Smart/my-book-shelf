@@ -3,10 +3,11 @@ import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
-import AppText from "../AppText";
-import colors from "../../config/colors";
+import AppText from "./AppText";
+import colors from "../config/colors";
+import store from "../utils/store";
 
-export default function ListItem({
+export default function UserHeader({
   title,
   subTitle,
   image,
@@ -14,20 +15,28 @@ export default function ListItem({
   onPress,
   renderRightActions,
 }) {
+  const user = store.getState().user;
+
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
         <View style={styles.container}>
           {IconComponent}
-          {image && <Image style={styles.image} source={image} />}
+
+          <Image
+            style={styles.image}
+            source={require("../assets/bookbackground.jpeg")}
+          />
 
           <View style={styles.detailsContainer}>
-            <AppText style={styles.title} numberOfLines={1}>
-              {title}
-            </AppText>
-            {subTitle && (
+            {user.name && (
+              <AppText style={styles.title} numberOfLines={1}>
+                {user.name}
+              </AppText>
+            )}
+            {user.email && (
               <AppText numberOfLines={2} style={styles.subTitle}>
-                {subTitle}
+                {user.email}
               </AppText>
             )}
           </View>

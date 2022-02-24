@@ -4,7 +4,6 @@ import { View, Modal, StyleSheet, FlatList } from "react-native";
 import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import Student from "../components/Student";
-import ListItem from "../components/lists/ListItem";
 
 import studentApi from "../api/students";
 

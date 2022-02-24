@@ -5,11 +5,12 @@ import AppIcon from "./AppIcon";
 
 import colors from "../config/colors";
 
-export default function BookOptions({ name, data, onPress }) {
-  const [active, setActive] = useState(false);
+export default function BookOptions({ name, data, onPress, setActive }) {
+  const [activated, setActivated] = useState(setActive);
 
   const handleVisible = () => {
-    setActive(!active);
+    if (activated == true) return;
+    setActivated(!activated);
   };
 
   return (
@@ -18,7 +19,7 @@ export default function BookOptions({ name, data, onPress }) {
       onPress={() => onPress(data)}
       onPressIn={handleVisible}
     >
-      {active ? (
+      {activated ? (
         <AppIcon
           name={name}
           iconColor={colors.subTitle}

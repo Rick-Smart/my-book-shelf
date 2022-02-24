@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
 import AppTextInput from "../components/AppTextInput";
-import ListItem from "../components/lists/ListItem";
+import UserHeader from "../components/UserHeader";
 import Screen from "../components/Screen";
 import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
@@ -49,12 +49,7 @@ export default function MyBookShelfScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View>
-        <ListItem
-          onPress={() => navigation.navigate("Account")}
-          title="Amber H."
-          subTitle="aquarius_darling226"
-          image={require("../assets/bookbackground.jpeg")}
-        />
+        <UserHeader onPress={() => navigation.navigate("Account")} />
       </View>
       <View style={styles.searchContainer}>
         <AppTextInput

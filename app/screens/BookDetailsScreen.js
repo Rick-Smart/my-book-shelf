@@ -16,8 +16,7 @@ import colors from "../config/colors";
 
 export default function BookDetailsScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-
-  const listing = route.params;
+  const [listing, setListing] = useState(route.params);
 
   // this function is being used to change the options of the book and will
   // need to be changed later once we've added redux to the app
@@ -26,23 +25,49 @@ export default function BookDetailsScreen({ route, navigation }) {
 
     switch (option) {
       case "addToBookShelf":
-        handleAddBook(listing);
+        if (listing.owned) {
+          return;
+        } else {
+          handleAddBook(listing);
+        }
         break;
       case "checkOut":
-        handleModalVisible();
-        break;
-      case "returnToBookShelf":
+        if (listing.checkOut === true) {
+          // this is where we'll make our call to mark the book as not checked out
+          // and remove it from the student books array that currently has it.
+          return;
+        } else {
+          handleModalVisible();
+        }
         break;
       default:
         alert("what went wrong?");
+        break;
     }
   };
 
+  const options = [
+    {
+      name: "bookshelf",
+      data: "addToBookShelf",
+      active: () => {
+        if (!listing.owned) return false;
+        else return listing.owned;
+      },
+      onPress: handleOptions,
+    },
+    {
+      name: "share-outline",
+      data: "checkOut",
+      active: listing.checkOut,
+      onPress: handleOptions,
+    },
+  ];
+
   const handleAddBook = async (book) => {
+    if (listing._id) return;
     try {
-      await bookApi.addBook(book).then((result) => {
-        console.log(result);
-      });
+      await bookApi.addBook(book);
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +78,7 @@ export default function BookDetailsScreen({ route, navigation }) {
   };
 
   // this function fires off when the checkout option is selected and prompts
-  // the user to select the student thay they want to check this book out with
+  // the user to select the student that they want to check this book out with
   const handleStudentSelect = (studentData) => {
     // now that we have the book data and student data, we can
     // perform our api call to add book to student
@@ -79,31 +104,11 @@ export default function BookDetailsScreen({ route, navigation }) {
   // and add the book to the selected student
   const handleAddBookToSudent = async (book, student) => {
     try {
-      await studentApi.addBooksToStudent(book, student).then((result) => {
-        console.log(result);
-      });
+      await studentApi.addBooksToStudent(book, student);
     } catch (error) {
       console.log(error);
     }
   };
-
-  const options = [
-    {
-      name: "bookshelf",
-      data: "addToBookShelf",
-      onPress: handleOptions,
-    },
-    {
-      name: "share-outline",
-      data: "checkOut",
-      onPress: handleOptions,
-    },
-    {
-      name: "thumb-up",
-      data: "returnToBookShelf",
-      onPress: handleOptions,
-    },
-  ];
 
   return (
     <Screen style={styles.screen}>
@@ -136,6 +141,7 @@ export default function BookDetailsScreen({ route, navigation }) {
                   name={item.name}
                   data={item.data}
                   onPress={(name) => handleOptions(name)}
+                  setActive={item.active}
                 />
               )}
             />
