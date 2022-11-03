@@ -25,7 +25,7 @@ export default function UserHeader({
 
           <Image
             style={styles.image}
-            source={require("../assets/bookbackground.jpeg")}
+            source={require("../assets/tyler-profile.png")}
           />
 
           <View style={styles.detailsContainer}>

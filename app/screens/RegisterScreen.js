@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import AppLogo from "../components/AppLogo";
 import Screen from "../components/Screen";
 
+import authApi from "../api/auth";
+
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 
 // the validation needed for our form this will need to be changed for each form
@@ -15,10 +17,18 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function RegisterScreen({ navigation }) {
-  const onLogin = (values) => {
-    console.log(values);
+
+  const onRegisterUser = async (values) => {
+    console.log(values)
     Keyboard.dismiss();
+    await authApi.authLogin(values).then((response) => {
+      if (!response.ok) {
+        console.log(response.data);
+      }
+      redirect();
+    });
   };
+
 
   return (
     <Screen style={styles.container}>
@@ -28,7 +38,7 @@ export default function RegisterScreen({ navigation }) {
       <AppForm
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values) => onLogin(values)}
+        onSubmit={(values) => onRegisterUser(values)}
       >
         <AppFormField
           name="name"

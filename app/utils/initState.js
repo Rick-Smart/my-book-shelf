@@ -1,5 +1,8 @@
 export default initState = {
   books: [],
   students: [],
-  user: { name: "Cassia", email: "cassia@email.com" },
+  user: {
+    name: "Tyler Owen Morris",
+    // email: "cassia@email.com"
+  },
 };
