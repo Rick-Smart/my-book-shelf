@@ -11,7 +11,6 @@ export default function UserHeader({ IconComponent, onPress }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-
   return (
     <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
       <View style={styles.container}>
@@ -20,6 +19,10 @@ export default function UserHeader({ IconComponent, onPress }) {
         <Image
           style={styles.image}
           source={require("../assets/bookbackground.jpeg")}
+        />
+        <Image
+          style={styles.image}
+          source={require("../assets/tyler-profile.png")}
         />
 
         <View style={styles.detailsContainer}>
