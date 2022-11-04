@@ -14,6 +14,6 @@ export default RecommendedNavigator = () => (
     }}
   >
     <Stack.Screen name="AddBookScreen" component={AddBookScreen} />
-    <Stack.Screen name="RecommendedListing" component={BookDetailsScreen} />
+    <Stack.Screen name="MyBookListing" component={BookDetailsScreen} />
   </Stack.Navigator>
 );

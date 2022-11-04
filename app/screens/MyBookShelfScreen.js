@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
 
 import AppTextInput from "../components/AppTextInput";
 import UserHeader from "../components/UserHeader";
@@ -8,24 +7,36 @@ import Screen from "../components/Screen";
 import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
 
+// redux hooks
+import { useSelector, useDispatch } from "react-redux";
+import { loadBooks, focusBook } from "../store/reducer";
+
 import booksApi from "../api/books";
 
 import colors from "../config/colors";
 
 export default function MyBookShelfScreen({ navigation }) {
   const [searchResults, setSearchResults] = useState([]);
-  const [books, setBooks] = useState([]);
 
-  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books);
 
   useEffect(() => {
-    loadBooks();
-  }, [isFocused]);
-  // our api call to the db to fetch all of our saved books
-  const loadBooks = async () => {
-    const response = await booksApi.getBooks();
-    setBooks(response.data);
+    loadBooksApi();
+  }, []);
+
+  // our api call to the db to fetch all of our saved books and set them in
+  // our redux store.
+  const loadBooksApi = async () => {
+    await booksApi
+      .getBooks()
+      .then((response) => {
+        dispatch(loadBooks(response.data));
+        return response;
+      })
+      .catch((err) => console.log(err));
   };
+
   // our book search method (still needs tweaking) 2/19/22
   const bookSearch = (text) => {
     if (text) {
@@ -39,7 +50,6 @@ export default function MyBookShelfScreen({ navigation }) {
           firstAuthor.toLowerCase().includes(searchTerm)
         );
       });
-
       setSearchResults(filteredBooks);
     } else {
       setSearchResults([]);
@@ -77,7 +87,10 @@ export default function MyBookShelfScreen({ navigation }) {
                     title={item.title}
                     subtitle={"Rating: " + item.rating}
                     imageUrl={item.image}
-                    onPress={() => navigation.navigate("MyBookListing", item)}
+                    onPress={() => {
+                      dispatch(focusBook(item));
+                      navigation.navigate("MyBookListing");
+                    }}
                   />
                 )}
               />
@@ -93,7 +106,10 @@ export default function MyBookShelfScreen({ navigation }) {
                     title={item.title}
                     subtitle={"Rating: " + item.rating}
                     imageUrl={item.image}
-                    onPress={() => navigation.navigate("MyBookListing", item)}
+                    onPress={() => {
+                      dispatch(focusBook(item));
+                      navigation.navigate("MyBookListing");
+                    }}
                   />
                 )}
               />
