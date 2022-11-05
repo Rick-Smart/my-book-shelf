@@ -20,10 +20,6 @@ export default function UserHeader({ IconComponent, onPress }) {
           style={styles.image}
           source={require("../assets/bookbackground.jpeg")}
         />
-        <Image
-          style={styles.image}
-          source={require("../assets/tyler-profile.png")}
-        />
 
         <View style={styles.detailsContainer}>
           {user.name && (
