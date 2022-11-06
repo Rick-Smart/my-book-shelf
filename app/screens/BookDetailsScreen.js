@@ -6,6 +6,7 @@ import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
 import StudentSelectModal from "../components/StudentSelectModal";
 import BookOptions from "../components/BookOptions";
+import UserHeader from "../components/UserHeader";
 
 // our apicalls
 import bookApi from "../api/books";
@@ -113,12 +114,7 @@ export default function BookDetailsScreen({ route, navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.userContainer}>
-        <ListItem
-          image={require("../assets/bookbackground.jpeg")}
-          title="Amber H."
-          subTitle="aquarius_darling226"
-          onPress={() => navigation.navigate("Account")}
-        />
+        <UserHeader onPress={() => navigation.navigate("Account")} />
       </View>
       <ScrollView>
         <StudentSelectModal
@@ -129,7 +125,9 @@ export default function BookDetailsScreen({ route, navigation }) {
         <Image style={styles.image} source={{ uri: listing.image }} />
         <View style={styles.detailsContainer}>
           <AppText style={styles.title}>{listing.title}</AppText>
-          <AppText style={styles.author}>By: {listing.authors}</AppText>
+          {listing.authors[0] && (
+            <AppText style={styles.author}>By: {listing.authors}</AppText>
+          )}
           <AppText style={styles.rating}>Rating: {listing.rating}</AppText>
           <View style={styles.bookOptionsContainer}>
             <FlatList

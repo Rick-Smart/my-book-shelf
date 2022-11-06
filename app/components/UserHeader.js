@@ -25,7 +25,7 @@ export default function UserHeader({
 
           <Image
             style={styles.image}
-            source={require("../assets/tyler-profile.png")}
+            source={require("../assets/bookbackground.jpeg")}
           />
 
           <View style={styles.detailsContainer}>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: "center",
     backgroundColor: colors.white,
+    borderRadius: 15,
   },
   image: {
     borderRadius: 35,

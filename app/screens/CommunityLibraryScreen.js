@@ -56,7 +56,7 @@ export default function CommunityLibraryScreen({ navigation }) {
       </View>
       <View style={styles.searchContainer}>
         <AppTextInput
-          icon={"book-search"}
+          icon={"account-search"}
           placeholder="Search"
           onChangeText={(text) => studentSearch(text.toLowerCase())}
         />

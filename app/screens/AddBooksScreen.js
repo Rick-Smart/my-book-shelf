@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, FlatList, View } from "react-native";
 
 import AppCard from "../components/AppCard";
@@ -49,6 +49,7 @@ export default function AddBooksScreen({ navigation }) {
       {!error && (
         <View style={styles.searchContainer}>
           <AppTextInput
+            clearButtonMode="true"
             icon={"book-search"}
             placeholder="Search"
             onChangeText={(text) => bookSearch(text)}

@@ -26,14 +26,20 @@ export default function MyBookShelfScreen({ navigation }) {
     const response = await booksApi.getBooks();
     setBooks(response.data);
   };
-  // our book search method (still needs tweaking) 2/19/22
+  // our book search method
   const bookSearch = (text) => {
     if (text) {
       const searchTerm = text;
 
-      // filter method i'm using to search for books in my array (still needs tweaking) 2/19/22
+      // filter method i'm using to search for books in my array
+      // not all books in the google book search come back with all the fields filled out correctly.
+      // Will need to sanitize the data before pushing to DB so this search function isn't so DIRTY
       const filteredBooks = books.filter(({ title, authors }) => {
-        const firstAuthor = authors[0];
+        let firstAuthor = "";
+        if (authors[0]) {
+          firstAuthor = authors[0];
+        } else firstAuthor = "";
+
         return (
           title.toLowerCase().includes(searchTerm) ||
           firstAuthor.toLowerCase().includes(searchTerm)
@@ -41,8 +47,6 @@ export default function MyBookShelfScreen({ navigation }) {
       });
 
       setSearchResults(filteredBooks);
-    } else {
-      setSearchResults([]);
     }
   };
 
@@ -59,7 +63,7 @@ export default function MyBookShelfScreen({ navigation }) {
         />
       </View>
 
-      {searchResults.length < 1 && (
+      {!searchResults && (
         <AppText style={styles.helperText}>
           Type in the name or author of the book you're looking for in your
           library
