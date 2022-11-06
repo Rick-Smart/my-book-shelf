@@ -6,7 +6,6 @@ import UserHeader from "../components/UserHeader";
 import Screen from "../components/Screen";
 import StudentSelectModal from "../components/StudentSelectModal";
 import BookOptions from "../components/BookOptions";
-import UserHeader from "../components/UserHeader";
 
 // our apicalls
 import bookApi from "../api/books";

@@ -36,12 +36,7 @@ export default function MyBookShelfScreen({ navigation }) {
       })
       .catch((err) => console.log(err));
   };
-<<<<<<< HEAD
   // our book search method
-=======
-
-  // our book search method (still needs tweaking) 2/19/22
->>>>>>> a72ca3b4ed877d58010689e2d2bfbeea30fa8ff6
   const bookSearch = (text) => {
     if (text) {
       const searchTerm = text;

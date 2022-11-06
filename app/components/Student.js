@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.white,
     borderRadius: 15,
+    marginVertical: 5,
   },
   detailsContainer: {
     marginLeft: 10,

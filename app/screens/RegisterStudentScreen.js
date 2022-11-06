@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Keyboard, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Keyboard,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 import * as Yup from "yup";
 
 import AppIcon from "../components/AppIcon";
@@ -44,37 +50,39 @@ export default function RegisterStudentScreen({ navigation }) {
             iconColor={colors.subTitle}
           />
         </View>
-        <AppForm
-          initialValues={{ email: "", class: "" }}
-          validationSchema={validationSchema}
-          onSubmit={(values) => onAddStudent(values)}
-        >
-          <AppFormField
-            name="name"
-            autoCapitalize="words"
-            autoCorrect={false}
-            icon="account"
-            placeholder="Name"
-          />
-          <AppFormField
-            name="email"
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="email"
-            keyboardType="email-address"
-            placeholder="Email"
-            TextContentType="emailAddress"
-          />
-          <AppFormField
-            name="class"
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="account-group"
-            keyboardType="numeric"
-            placeholder="Class"
-          />
-          <SubmitButton title="Add Student" />
-        </AppForm>
+        <KeyboardAvoidingView>
+          <AppForm
+            initialValues={{ email: "", class: "" }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => onAddStudent(values)}
+          >
+            <AppFormField
+              name="name"
+              autoCapitalize="words"
+              autoCorrect={false}
+              icon="account"
+              placeholder="Name"
+            />
+            <AppFormField
+              name="email"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="email"
+              keyboardType="email-address"
+              placeholder="Email"
+              TextContentType="emailAddress"
+            />
+            <AppFormField
+              name="class"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="account-group"
+              keyboardType="numeric"
+              placeholder="Class"
+            />
+            <SubmitButton title="Add Student" />
+          </AppForm>
+        </KeyboardAvoidingView>
       </ScrollView>
     </Screen>
   );

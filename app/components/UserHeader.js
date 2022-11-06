@@ -16,17 +16,10 @@ export default function UserHeader({ IconComponent, onPress }) {
       <View style={styles.container}>
         {IconComponent}
 
-<<<<<<< HEAD
-          <Image
-            style={styles.image}
-            source={require("../assets/bookbackground.jpeg")}
-          />
-=======
         <Image
           style={styles.image}
           source={require("../assets/bookbackground.jpeg")}
         />
->>>>>>> a72ca3b4ed877d58010689e2d2bfbeea30fa8ff6
 
         <View style={styles.detailsContainer}>
           {user.name && (

@@ -55,13 +55,16 @@ const styles = StyleSheet.create({
   },
   container: {
     marginVertical: 20,
+    marginHorizontal: 5,
   },
   logoutContainer: {
     position: "absolute",
     bottom: 0,
     width: "100%",
+    marginHorizontal: 5,
   },
   menuContainer: {
     paddingTop: 10,
+    marginHorizontal: 5,
   },
 });
