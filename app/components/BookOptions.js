@@ -5,19 +5,21 @@ import AppIcon from "./AppIcon";
 
 import colors from "../config/colors";
 
-export default function BookOptions({ name, data, onPress, setActive }) {
+export default function BookOptions({ name, onPress, setActive }) {
   const [activated, setActivated] = useState(setActive);
 
-  const handleVisible = () => {
-    if (activated == true) return;
-    setActivated(!activated);
-  };
+  function handleVisible() {
+    if (setActive) return;
+    setActivated(true);
+  }
 
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => onPress(data)}
-      onPressIn={handleVisible}
+      onPress={() => {
+        handleVisible();
+        onPress();
+      }}
     >
       {activated ? (
         <AppIcon

@@ -5,16 +5,24 @@ import AppCard from "../components/AppCard";
 import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
-import colors from "../config/colors";
 import image from "../config/imageUrls";
 import Screen from "../components/Screen";
 import UserHeader from "../components/UserHeader";
+import colors from "../config/colors";
+
+// our api route for google searches
 import googleApi from "../api/google";
+
+// redux hooks
+import { useSelector, useDispatch } from "react-redux";
+import { focusBook } from "../store/reducer";
 
 export default function AddBooksScreen({ navigation }) {
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const bookSearch = async (text) => {
     if (!text) return;
@@ -24,7 +32,14 @@ export default function AddBooksScreen({ navigation }) {
     const response = await googleApi.getBooks(text);
     // set our local state
     if (!response.problem) {
-      setSearchResults(response);
+      // look back into this filtering method cause its amazing!
+      // let filteredBookResults = response.filter(({ id }) => {
+      //   return !this[id] && (this[id] = id);
+      // });
+      let filteredBookResults = [
+        ...new Map(response.map((book) => [book.id, book])).values(),
+      ];
+      setSearchResults(filteredBookResults);
     } else {
       setSearchResults([]);
       setError(true);
@@ -65,7 +80,10 @@ export default function AddBooksScreen({ navigation }) {
               title={item.title}
               subtitle={"Rating: " + item.rating}
               imageUrl={item.image ? item.image : image.noImage}
-              onPress={() => navigation.navigate("RecommendedListing", item)}
+              onPress={() => {
+                dispatch(focusBook(item));
+                navigation.navigate("MyBookListing");
+              }}
             />
           )}
         />

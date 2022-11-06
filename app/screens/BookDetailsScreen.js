@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, ScrollView, FlatList } from "react-native";
 
 import AppText from "../components/AppText";
-import ListItem from "../components/lists/ListItem";
+import UserHeader from "../components/UserHeader";
 import Screen from "../components/Screen";
 import StudentSelectModal from "../components/StudentSelectModal";
 import BookOptions from "../components/BookOptions";
@@ -12,69 +12,45 @@ import UserHeader from "../components/UserHeader";
 import bookApi from "../api/books";
 import studentApi from "../api/students";
 
+// redux hooks
+import { useSelector, useDispatch } from "react-redux";
+import { addBook, checkOutBook, focusBook } from "../store/reducer";
+
 // config folder with all our defaults
 import colors from "../config/colors";
 
-export default function BookDetailsScreen({ route, navigation }) {
+export default function BookDetailsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [listing, setListing] = useState(route.params);
-
-  // this function is being used to change the options of the book and will
-  // need to be changed later once we've added redux to the app
-  const handleOptions = (option) => {
-    listing[option] = !listing[option];
-
-    switch (option) {
-      case "addToBookShelf":
-        if (listing.owned) {
-          return;
-        } else {
-          handleAddBook(listing);
-        }
-        break;
-      case "checkOut":
-        if (listing.checkOut === true) {
-          // this is where we'll make our call to mark the book as not checked out
-          // and remove it from the student books array that currently has it.
-          return;
-        } else {
-          handleModalVisible();
-        }
-        break;
-      default:
-        alert("what went wrong?");
-        break;
-    }
-  };
-
-  const options = [
-    {
-      name: "bookshelf",
-      data: "addToBookShelf",
-      active: () => {
-        if (!listing.owned) return false;
-        else return listing.owned;
-      },
-      onPress: handleOptions,
-    },
-    {
-      name: "share-outline",
-      data: "checkOut",
-      active: listing.checkOut,
-      onPress: handleOptions,
-    },
-  ];
+  const [listing, setListing] = useState(
+    useSelector((state) => state.focusedBook)
+  );
+  const dispatch = useDispatch();
 
   const handleAddBook = async (book) => {
     if (listing._id) return;
     try {
-      await bookApi.addBook(book);
+      await bookApi
+        .addBook(book)
+        .then((response) => {
+          console.log(response);
+          dispatch(addBook(response.data));
+          return response;
+        })
+        .then((response) => {
+          dispatch(focusBook(response.data));
+          return response;
+        })
+        .then((response) => {
+          dispatch(checkOutBook(response.data));
+          return response;
+        });
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleModalVisible = () => {
+    if (listing.checkedOut) return;
     setModalVisible(!modalVisible);
   };
 
@@ -84,6 +60,9 @@ export default function BookDetailsScreen({ route, navigation }) {
     // now that we have the book data and student data, we can
     // perform our api call to add book to student
     try {
+      if (!listing.owned) {
+        handleAddBook(listing);
+      }
       handleCheckOut(listing, studentData);
     } catch (error) {
       console.log(error);
@@ -94,6 +73,7 @@ export default function BookDetailsScreen({ route, navigation }) {
   const handleCheckOut = async (book, studentData) => {
     try {
       await bookApi.checkOutBook(book).then(() => {
+        dispatch(checkOutBook(book));
         handleAddBookToSudent(listing, studentData);
       });
     } catch (error) {
@@ -130,18 +110,15 @@ export default function BookDetailsScreen({ route, navigation }) {
           )}
           <AppText style={styles.rating}>Rating: {listing.rating}</AppText>
           <View style={styles.bookOptionsContainer}>
-            <FlatList
-              horizontal={true}
-              data={options}
-              keyExtractor={(option) => option.data}
-              renderItem={({ item }) => (
-                <BookOptions
-                  name={item.name}
-                  data={item.data}
-                  onPress={(name) => handleOptions(name)}
-                  setActive={item.active}
-                />
-              )}
+            <BookOptions
+              name={"bookshelf"}
+              setActive={listing.owned}
+              onPress={() => handleAddBook(listing)}
+            />
+            <BookOptions
+              name={"share-outline"}
+              setActive={listing.checkedOut}
+              onPress={handleModalVisible}
             />
           </View>
         </View>

@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import AppLogo from "../components/AppLogo";
 import Screen from "../components/Screen";
 import authApi from "../api/auth";
-import store from "../utils/store";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 

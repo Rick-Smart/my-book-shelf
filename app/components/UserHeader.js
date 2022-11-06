@@ -1,53 +1,52 @@
 import React from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useSelector, useDispatch } from "react-redux";
+import { loadBooks } from "../store/reducer";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
-import store from "../utils/store";
 
-export default function UserHeader({
-  title,
-  subTitle,
-  image,
-  IconComponent,
-  onPress,
-  renderRightActions,
-}) {
-  const user = store.getState().user;
+export default function UserHeader({ IconComponent, onPress }) {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   return (
-    <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
-        <View style={styles.container}>
-          {IconComponent}
+    <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+      <View style={styles.container}>
+        {IconComponent}
 
+<<<<<<< HEAD
           <Image
             style={styles.image}
             source={require("../assets/bookbackground.jpeg")}
           />
+=======
+        <Image
+          style={styles.image}
+          source={require("../assets/bookbackground.jpeg")}
+        />
+>>>>>>> a72ca3b4ed877d58010689e2d2bfbeea30fa8ff6
 
-          <View style={styles.detailsContainer}>
-            {user.name && (
-              <AppText style={styles.title} numberOfLines={1}>
-                {user.name}
-              </AppText>
-            )}
-            {user.email && (
-              <AppText numberOfLines={2} style={styles.subTitle}>
-                {user.email}
-              </AppText>
-            )}
-          </View>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={25}
-            color={colors.medium}
-          />
+        <View style={styles.detailsContainer}>
+          {user.name && (
+            <AppText style={styles.title} numberOfLines={1}>
+              {user.name}
+            </AppText>
+          )}
+          {user.email && (
+            <AppText numberOfLines={2} style={styles.subTitle}>
+              {user.email}
+            </AppText>
+          )}
         </View>
-      </TouchableHighlight>
-    </Swipeable>
+        <MaterialCommunityIcons
+          name="chevron-right"
+          size={25}
+          color={colors.medium}
+        />
+      </View>
+    </TouchableHighlight>
   );
 }
 
