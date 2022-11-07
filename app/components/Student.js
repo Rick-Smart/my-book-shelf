@@ -19,7 +19,9 @@ export default function Student({ name, email, classNumber, onPress }) {
         <View style={styles.detailsContainer}>
           <AppText style={styles.name}>{name}</AppText>
           <AppText style={styles.email}>{email}</AppText>
-          <AppText style={styles.classNumber}>{classNumber}</AppText>
+          <AppText style={styles.classNumber}>
+            {"Class: " + classNumber}
+          </AppText>
         </View>
       </View>
     </TouchableWithoutFeedback>

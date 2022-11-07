@@ -11,15 +11,17 @@ const getBooks = (book) =>
     // sort through the data and organize it so our frontend can read it.
     // We still need a filter method that removes/edits missing fields.
 
-    // let filteredSearchResults = response.filter(
-    //   (book) => book.authors[0] !== false
-    // );
+    // let filteredSearchResults = response.data.items.filter(({ volumeInfo }) => {
+    //   return volumeInfo.averageRating > 3;
+    // });
+
+    // console.log(filteredSearchResults);
 
     return (results = response.data.items.map(({ volumeInfo }) => {
       return {
         id: volumeInfo.infoLink,
         title: volumeInfo.title,
-        authors: volumeInfo?.authors || "No Author",
+        authors: volumeInfo?.authors || "No Author Details",
         description: volumeInfo.description,
         image: volumeInfo?.imageLinks?.thumbnail,
         link: volumeInfo.infoLink,

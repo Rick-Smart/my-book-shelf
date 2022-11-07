@@ -75,36 +75,32 @@ export default function CommunityLibraryScreen({ navigation }) {
       )}
       {searchResults.length > 0
         ? searchResults && (
-            <View>
-              <FlatList
-                data={searchResults}
-                keyExtractor={(listItem) => listItem._id.toString()}
-                renderItem={({ item }) => (
-                  <Student
-                    name={item.name}
-                    email={item.email}
-                    classNumber={item.class}
-                    onPress={() => navigation.navigate("StudentDetails", item)}
-                  />
-                )}
-              />
-            </View>
+            <FlatList
+              data={searchResults}
+              keyExtractor={(listItem) => listItem._id.toString()}
+              renderItem={({ item }) => (
+                <Student
+                  name={item.name}
+                  email={item.email}
+                  classNumber={item.class}
+                  onPress={() => navigation.navigate("StudentDetails", item)}
+                />
+              )}
+            />
           )
         : myStudents && (
-            <View>
-              <FlatList
-                data={myStudents}
-                keyExtractor={(listItem) => listItem._id.toString()}
-                renderItem={({ item }) => (
-                  <Student
-                    name={item.name}
-                    email={item.email}
-                    classNumber={item.class}
-                    onPress={() => navigation.navigate("StudentDetails", item)}
-                  />
-                )}
-              />
-            </View>
+            <FlatList
+              data={myStudents}
+              keyExtractor={(listItem) => listItem._id.toString()}
+              renderItem={({ item }) => (
+                <Student
+                  name={item.name}
+                  email={item.email}
+                  classNumber={item.class}
+                  onPress={() => navigation.navigate("StudentDetails", item)}
+                />
+              )}
+            />
           )}
     </Screen>
   );

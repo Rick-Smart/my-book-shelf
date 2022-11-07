@@ -32,17 +32,9 @@ export default function AddBooksScreen({ navigation }) {
     const response = await googleApi.getBooks(text);
     // set our local state
     if (!response.problem) {
-      // look back into this filtering method cause its amazing!
-      // let filteredBookResults = response.filter(({ id }) => {
-      //   return !this[id] && (this[id] = id);
-      // });
       let filteredBookResults = [
         ...new Map(response.map((book) => [book.id, book])).values(),
       ];
-
-      // let secondFilter = filteredBookResults.filter((books) => {
-      //   books.authors !== "No Author";
-      // });
 
       setSearchResults(filteredBookResults);
     } else {
