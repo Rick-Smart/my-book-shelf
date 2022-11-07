@@ -28,7 +28,6 @@ export default function CommunityLibraryScreen({ navigation }) {
   const loadStudents = async () => {
     const response = await studentApi.getStudents();
     setMyStudents(response.data);
-    
   };
 
   // this is the search feature we're using to tack down students by class or name

@@ -32,22 +32,20 @@ export default function StudentDetailsScreen({ route }) {
           classNumber={student.class}
         />
       </View>
-      <View>
-        <FlatList
-          data={studentBooks}
-          keyExtractor={(listItem) => listItem._id.toString()}
-          renderItem={({ item }) => (
-            <AppCard
-              title={item.title}
-              subtitle={"Rating: " + item.rating}
-              imageUrl={item.image}
-              onPress={() => {
-                console.log("yay!! you clicked a thing");
-              }}
-            />
-          )}
-        />
-      </View>
+      <FlatList
+        data={studentBooks}
+        keyExtractor={(listItem) => listItem._id.toString()}
+        renderItem={({ item }) => (
+          <AppCard
+            title={item.title}
+            subtitle={"Rating: " + item.rating}
+            imageUrl={item.image}
+            onPress={() => {
+              console.log(item.title);
+            }}
+          />
+        )}
+      />
     </Screen>
   );
 }
@@ -64,4 +62,5 @@ const styles = StyleSheet.create({
   studentBooks: {
     backgroundColor: colors.danger,
   },
+  listItems: {},
 });

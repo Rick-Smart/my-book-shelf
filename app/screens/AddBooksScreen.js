@@ -39,6 +39,11 @@ export default function AddBooksScreen({ navigation }) {
       let filteredBookResults = [
         ...new Map(response.map((book) => [book.id, book])).values(),
       ];
+
+      // let secondFilter = filteredBookResults.filter((books) => {
+      //   books.authors !== "No Author";
+      // });
+
       setSearchResults(filteredBookResults);
     } else {
       setSearchResults([]);

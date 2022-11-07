@@ -31,7 +31,7 @@ export default function BookDetailsScreen({ navigation }) {
       await bookApi
         .addBook(book)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           dispatch(addBook(response.data));
           return response;
         })
@@ -118,6 +118,7 @@ export default function BookDetailsScreen({ navigation }) {
               name={"share-outline"}
               setActive={listing.checkedOut}
               onPress={handleModalVisible}
+              disabled={listing.checkedOut}
             />
           </View>
         </View>
